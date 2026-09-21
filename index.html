@@ -1,943 +1,285 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>분당 실거주 매수 전략 보고서 · 2026.09.15</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>분당 정착 매수 — 모바일판</title>
 <style>
-  :root{
-    --bg:#EDF0F2; --panel:#FFFFFF; --ink:#15202B; --soft:#4C5A66; --dim:#7B8894;
-    --line:#D8DEE2; --line2:#AEB9C0; --teal:#1F5E56; --blue:#2E5AAC; --pos:#1B7A4B; --neg:#B0402C; --sand:#B8863B;
-    --hl:#F2F6FB;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Pretendard","Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-    font-size:15.5px;line-height:1.68;letter-spacing:-0.01em;}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 18px 90px}
-
-  header.hero{background:var(--teal);color:#E8F0EE;padding:46px 0 34px}
-  header.hero .wrap{padding-bottom:0}
-  .kicker{font-size:13.5px;color:#9EC3BB;margin:0 0 10px}
-  h1{font-size:34px;line-height:1.28;font-weight:800;margin:0 0 16px;letter-spacing:-0.03em;color:#fff}
-  .lede{font-size:16px;color:#D2E3DF;max-width:70ch;margin:0 0 28px}
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(255,255,255,.25)}
-  .kpis div{padding:16px 16px 4px 0}
-  .kpis .lb{font-size:12.5px;color:#9EC3BB;display:block}
-  .kpis .vl{font-size:26px;font-weight:800;color:#fff;display:block;line-height:1.3;letter-spacing:-0.02em}
-  .kpis .ds{font-size:12.5px;color:#A9CCC5;display:block}
-
-  nav{position:sticky;top:0;background:rgba(237,240,242,.95);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);z-index:10;margin-bottom:24px}
-  nav .wrap{padding:0 18px;display:flex;gap:2px;overflow-x:auto;white-space:nowrap}
-  nav a{font-size:13px;color:var(--soft);text-decoration:none;padding:11px 10px;border-bottom:2px solid transparent}
-  nav a:hover,nav a:focus{color:var(--teal);border-bottom-color:var(--teal)}
-
-  section{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:28px 26px;margin-bottom:20px}
-  .eyebrow{font-size:12.5px;color:var(--dim);margin:0 0 6px}
-  h2{font-size:23px;font-weight:780;margin:0 0 10px;letter-spacing:-0.025em;line-height:1.35}
-  h2 em{font-style:normal;color:var(--blue)}
-  h3{font-size:16.5px;font-weight:720;margin:26px 0 8px}
-  h4{font-size:14.5px;font-weight:700;margin:18px 0 4px}
-  p{margin:0 0 11px;max-width:74ch}
-  .sub{color:var(--soft);font-size:14.5px;max-width:78ch;margin:0 0 18px}
-  ul{margin:0 0 12px;padding-left:18px}
-  li{margin-bottom:6px;max-width:74ch}
-  .note{color:var(--soft);font-size:14px}
-
-  .quote{border-left:3px solid var(--blue);background:var(--hl);padding:16px 18px;margin:18px 0}
-  .quote p{margin:0 0 9px;max-width:none}
-  .quote p:last-child{margin-bottom:0}
-
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .cols4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-  .box{border-top:2px solid var(--ink);padding-top:12px}
-  .box b{display:block;font-size:15.5px;margin-bottom:4px}
-  .box .big{font-size:24px;font-weight:800;letter-spacing:-0.02em;display:block;margin-bottom:2px}
-  .box p{font-size:14px;color:var(--soft);margin:0}
-
-  .scroll{overflow-x:auto;margin:0 0 14px;-webkit-overflow-scrolling:touch}
-  .swipe{display:none;font-size:12.5px;color:var(--dim);margin:0 0 4px}
-  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:620px}
-  table.wide{min-width:900px}
-  table.narrow td:first-child{width:118px}
-  th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{font-size:12.5px;color:var(--dim);font-weight:600;border-bottom:1px solid var(--line2);white-space:nowrap}
-  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-  td:first-child,th:first-child{position:sticky;left:0;z-index:2;background:var(--panel);
-    padding-left:0;padding-right:14px;box-shadow:1px 0 0 var(--line)}
-  td:nth-child(2),th:nth-child(2){padding-left:14px}
-  tr.hl td:first-child{background:var(--hl)}
-  td:first-child{font-weight:650;white-space:normal;word-break:keep-all;width:150px;line-height:1.45}
-  tr.hl td{background:var(--hl)}
-  .pos{color:var(--pos);font-weight:700}
-  .neg{color:var(--neg);font-weight:700}
-  .b{font-weight:700}
-
-  ol.rank{list-style:none;margin:0;padding:0;counter-reset:r}
-  ol.rank li{counter-increment:r;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:baseline;
-    padding:10px 0;border-bottom:1px solid var(--line);margin:0;max-width:none}
-  ol.rank li::before{content:counter(r);font-variant-numeric:tabular-nums;font-size:14.5px;font-weight:700;color:var(--teal)}
-  ol.rank .nm{font-weight:700;font-size:15.5px}
-  ol.rank .cm{font-size:14px;color:var(--soft);margin-left:9px}
-
-  .bars{margin:0}
-  .bar{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;padding:5px 0;font-size:13.5px}
-  .bar .nm{text-align:right;color:var(--soft)}
-  .bar .tr{display:block;background:#E7EBEE;height:16px;border-radius:2px;overflow:hidden}
-  .bar .fl{display:block;height:100%;background:#9FB3C8}
-  .bar.top .nm{color:var(--ink);font-weight:700}
-  .fl.c-blue{background:#2E5AAC} .fl.c-sky{background:#7FA8DB} .fl.c-sand{background:#C99A3E}
-  .fl.c-green{background:#3E9E6E} .fl.c-olive{background:#8FBF9A} .fl.c-amber{background:#D8A93F}
-  .fl.c-red{background:#C0663F} .fl.c-gray{background:#AEBAC4}
-  .legend{display:flex;flex-wrap:wrap;gap:7px 16px;margin:8px 0 14px;font-size:12.5px;color:var(--soft)}
-  .legend span{display:inline-flex;align-items:center;gap:6px}
-  .legend i{width:14px;height:10px;border-radius:2px;display:inline-block;flex:0 0 auto}
-  .bar .vl{font-variant-numeric:tabular-nums;font-weight:700;font-size:13.5px}
-
-  .tl{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:16px 0 4px;border-top:2px solid var(--line2);padding-top:0}
-  .tl div{padding:14px 12px 0 0;position:relative}
-  .tl div::before{content:"";position:absolute;top:-6px;left:0;width:9px;height:9px;border-radius:50%;background:var(--soft)}
-  .tl div:last-child::before{background:var(--blue)}
-  .tl b{display:block;font-size:14px}
-  .tl span{font-size:13px;color:var(--soft)}
-
-  .nbgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  .nblock{border-top:2px solid var(--ink);padding-top:10px}
-  .nblock h4{margin:0 0 6px;font-size:16px}
-  .nblock dl{margin:0;display:grid;grid-template-columns:86px 1fr}
-  .nblock dt{font-size:12.5px;color:var(--dim);font-weight:600;padding:7px 10px 7px 0;border-top:1px solid var(--line)}
-  .nblock dd{margin:0;font-size:14px;line-height:1.6;padding:7px 0;border-top:1px solid var(--line)}
-  .check{list-style:none;padding:0}  .check li{padding-left:24px;position:relative}
-  .check li::before{content:"";position:absolute;left:0;top:7px;width:12px;height:12px;border:1.5px solid #9AA6AE;border-radius:2px}
-
-  footer{color:var(--dim);font-size:12.5px;text-align:center;padding-top:6px;line-height:1.8}
-
-  @media (max-width:820px){
-    .nbgrid{grid-template-columns:1fr}
-    .cols,.cols3,.cols4,.kpis,.tl{grid-template-columns:1fr;gap:16px}
-    .kpis div{border-top:1px solid rgba(255,255,255,.18);padding:12px 0 6px}
-    .kpis div:first-child{border-top:none}
-    .tl{border-top:none}
-    .tl div{border-left:2px solid var(--line2);padding:2px 0 14px 14px}
-    .tl div::before{top:6px;left:-5px}
-    h1{font-size:27px} h2{font-size:20px}
-    section{padding:22px 16px}
-    .bar{grid-template-columns:120px 1fr 48px;font-size:12.5px}
-    .swipe{display:block}
-  }
-  @media (max-width:480px){
-    body{font-size:15px}
-    .wrap{padding:0 14px 70px}
-    section{padding:20px 14px;border-radius:0;margin-left:-14px;margin-right:-14px;border-left:none;border-right:none}
-    h1{font-size:24px} h2{font-size:18.5px} h3{font-size:15.5px}
-    table{font-size:12.5px;min-width:640px}
-    th,td{padding:7px 9px}
-    td:nth-child(2),th:nth-child(2){padding-left:11px}
-    table.wide{min-width:760px}
-    th,td{padding:7px 8px 7px 0}
-    .kpis .vl{font-size:22px}
-    .bar{grid-template-columns:104px 1fr 42px;font-size:12px}
-    .nbgrid{grid-template-columns:1fr}
-    .nblock dl{grid-template-columns:1fr}
-    .nblock dt{padding-bottom:0}
-    .nblock dd{border-top:none;padding-top:1px}
-    td:first-child{width:96px;font-size:12px;padding-left:0;padding-right:10px}
-    ol.rank .cm{display:block;margin-left:0}
-  }
-</style>
-</head>
-<body>
-
-<header class="hero">
-  <div class="wrap">
-    <p class="kicker">분당 실거주 매수 전략 보고서 · 2026.09.15</p>
-    <h1>한 번 사서 정착한다<br>— 실패하지 않는 집을 고르는 기준</h1>
-    <p class="lede">전세 만기(2027년 11월)에 맞춰 분당에서 84㎡ 이상을 사서 10년 이상 산다. 갈아타기는 2순위이고, 이 집이 노후 자산의 큰 부분이므로 "많이 오를 집"보다 "덜 빠지고 버틸 수 있는 집"을 고른다. 분당 9개 단지에 판교원마을 3개 단지를 더한 12개 후보, 실매물 60여 건, 2015년 이후 실거래 11년치, 학교·통학·통근·급지·평판을 한 잣대로 놓고 채점했다.</p>
-    <div class="kpis">
-      <div><span class="lb">보유 현금 (2027.11 예상)</span><span class="vl">약 12억</span><span class="ds">전세보증금 · 매도금 · 예적금 · 잔금까지의 적립</span></div>
-      <div><span class="lb">총부채 상한</span><span class="vl">6억</span><span class="ds">대출 6억, 또는 대출 4억 + 추가 자금 2억 — 갚을 돈은 같다</span></div>
-      <div><span class="lb">총지출 상한</span><span class="vl">18억</span><span class="ds">집값 + 인테리어 + 취득세·중개·이사 · 집값 기준 약 16.8억</span></div>
-      <div><span class="lb">두 번 이사의 비용</span><span class="vl">1.1~1.4억</span><span class="ds">취득세 · 중개수수료 · 이사 · 인테리어 — 지금 더 주고 정착하는 것과 같은 돈</span></div>
-    </div>
-  </div>
+:root{--ink:#16202A;--mute:#5B6673;--rule:#E3E7EB;--acc:#2A5BD7;--accl:#E8EEFB;--ok:#1B7F5C;--okl:#E6F2ED;--warn:#B7791F;--warnl:#F7EFE0;--red:#C2410C;--redl:#FBEAE2;--bg:#F4F6F8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:16px;line-height:1.62;-webkit-text-size-adjust:100%}
+header{position:sticky;top:0;z-index:10;background:#16202A;color:#fff;padding:12px 16px 10px}
+header h1{font-size:17px;margin:0;letter-spacing:-.2px}
+header .d{font-size:11.5px;color:#9AA5B1;margin-top:2px}
+nav{position:sticky;top:58px;z-index:9;background:#16202A;padding:0 12px 10px;display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav a{flex:0 0 auto;font-size:12.5px;color:#DDE3EA;background:#2A3542;border-radius:999px;padding:5px 12px;text-decoration:none}
+main{max-width:640px;margin:0 auto;padding:14px 14px 60px}
+section{scroll-margin-top:110px}
+h2{font-size:21px;margin:26px 2px 10px;letter-spacing:-.3px}
+h2 b{color:var(--acc)}
+h3{font-size:16.5px;margin:16px 2px 6px}
+p{margin:0 0 10px}
+.card{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:14px 15px;margin-bottom:10px}
+.card.top{border-left:4px solid var(--acc)}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.kv div{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:10px 12px}
+.kv .k{font-size:11.5px;color:var(--mute)}
+.kv .v{font-size:20px;font-weight:800;margin-top:1px}
+.kv .s{font-size:12px;color:var(--mute);margin-top:2px;line-height:1.45}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 9px;margin:0 4px 4px 0}
+.tag.b{background:var(--accl);color:var(--acc)}.tag.g{background:var(--okl);color:var(--ok)}.tag.y{background:var(--warnl);color:var(--warn)}.tag.r{background:var(--redl);color:var(--red)}.tag.n{background:#EEF1F4;color:var(--mute)}
+.small{font-size:13px;color:var(--mute);line-height:1.55}
+ul{padding-left:19px;margin:6px 0 10px}
+li{margin-bottom:6px}
+.rankrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--rule)}
+.rankrow:last-child{border-bottom:0}
+.rankrow .n{width:132px;font-size:13.5px;line-height:1.3}
+.rankrow .bar{flex:1;height:10px;background:#EEF1F4;border-radius:5px;overflow:hidden}
+.rankrow .bar i{display:block;height:10px;border-radius:5px;background:#9AA5B1}
+.rankrow.hl .bar i{background:var(--acc)}
+.rankrow.hl .n{font-weight:700}
+.rankrow .v{width:40px;text-align:right;font-size:13px;font-weight:700}
+.brow{display:flex;align-items:center;gap:8px;padding:5px 0}
+.brow .n{width:96px;font-size:13px}
+.brow .bar{flex:1;height:12px;background:#EEF1F4;border-radius:6px;overflow:hidden}
+.brow .bar i{display:block;height:12px;border-radius:6px}
+.brow .v{width:118px;font-size:12px;color:var(--mute)}
+.brow .v b{color:var(--ink);font-size:13px}
+.get{color:var(--ok);font-weight:700}.give{color:var(--red);font-weight:700}
+.cd h3{margin:0 0 2px;font-size:17px}
+.cd .sub{font-size:12.5px;color:var(--mute);margin-bottom:8px}
+.cd .row{font-size:14.5px;margin:5px 0;line-height:1.55}
+.step{display:flex;gap:12px}
+.step .dot{flex:0 0 auto;width:12px;display:flex;flex-direction:column;align-items:center}
+.step .dot i{width:12px;height:12px;border-radius:50%;background:var(--ink);margin-top:5px}
+.step:last-child .dot::after{display:none}
+.step .dot::after{content:"";flex:1;width:2px;background:var(--rule);margin-top:2px}
+.step .tx{padding-bottom:14px}
+.step .t{font-weight:700;font-size:15px}
+.step .d{font-size:13.5px;color:var(--mute)}
+.step.now .dot i{background:var(--acc)}
+details{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:12px 15px;margin-bottom:10px}
+summary{font-weight:700;font-size:15.5px;cursor:pointer}
+details[open] summary{margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+th{text-align:left;color:var(--mute);font-size:11.5px;border-bottom:1.5px solid var(--ink);padding:6px 6px}
+td{border-bottom:1px solid var(--rule);padding:7px 6px;vertical-align:top}
+.note{border-left:3px solid var(--acc);background:#fff;border-radius:0 12px 12px 0;padding:10px 14px;margin:12px 0;font-size:14.5px}
+footer{max-width:640px;margin:0 auto;padding:0 16px 40px;font-size:11.5px;color:var(--mute);line-height:1.6}
+</style></head><body>
+<header>
+<h1>분당 정착 매수 전략 — 한눈에</h1>
+<div class="d">본문 기준 2026.09.15 · 매물 재조사 09.21 · 12쪽 보고서의 모바일 요약판</div>
 </header>
-
-<nav><div class="wrap">
-  <a href="#s1">요약</a>
-  <a href="#s2">돈의 규칙</a>
-  <a href="#s3">시세와 매물</a>
-  <a href="#s4">학교와 통근</a>
-  <a href="#s5">채점</a>
-  <a href="#s6">10년 실거래</a>
-  <a href="#s7">환금성</a>
-  <a href="#s8">시장 위치</a>
-  <a href="#s9">상급지 시차</a>
-  <a href="#s10">매물별 자금</a>
-  <a href="#s11">동네 평판·실행 규칙</a>
-  <a href="#s12">부록</a>
-</div></nav>
-
-<div class="wrap">
+<nav>
+<a href="#s1">결론</a><a href="#s2">후보</a><a href="#s3">돈의 규칙</a><a href="#s4">시장</a><a href="#s5">환금성</a><a href="#s6">매물 9/21</a><a href="#s7">실행</a><a href="#s8">학교·통근</a>
+</nav>
+<main>
 
 <section id="s1">
-  <p class="eyebrow">요약</p>
-  <h2>상위 네 곳의 점수 차는 0.25 안이다</h2>
-
-  <div class="quote">
-    <p><span class="b">결론.</span> 정착·하방·급지 기준으로 상위 네 곳은 <span class="b">정든 1단지 101 1층(3.65) · 무지개 청구 85(3.62) · 탑 경남 115 1층·2층(3.58) · 센트럴타운 85(3.55)</span>이고 점수 차는 0.25 안이다. 순위 하나로 정할 차이가 아니라, 네 집이 각각 무엇을 얻고 무엇을 내주는지로 정한다.</p>
-    <p><span class="b">주말 사이 바뀐 것.</span> 대형 1층 두 채(탑 경남 707동, 정든 1단지)가 매물에서 빠졌다. 대형 갈래는 지금 실물이 없고(경남 705동 2층 17.8억은 상한 초과), 회전율 분석에서 LG·정든·경남 115의 "작은 낙폭"이 거래가 없어 작았던 것으로 확인돼 자산 점수를 낮췄다. 그 결과 <span class="b">실수요가 검증된 청구(하락장 회전 유지 51%·매물 2개월치)와 센트럴타운(하락장 회전 2.9% 유지·전세가율 54)</span>이 앞으로 나왔다.</p>
-    <p><span class="b">급지와 판교.</span> 20년 관찰 기준의 급지 순서(수내 &gt; 서현·정자 &gt; 이매 &gt; 샛별 &gt; 금곡 &gt; 판교원 &gt; 미금 &gt; 야탑 &gt; 오리 &gt; 여수)를 채점에 넣고, 낙생중 학군인 판교원마을을 7·9·12단지를 후보에 추가했다. 급지를 넣자 정자동 정든이 1위로 올라오고 청구는 2위로 내려갔지만 0.03 차이다. 판교원은 학군·급지 모두 후보 중 최상이나 호가가 17.8~20.5억으로 총지출 상한을 넘어 지금은 자금 점수가 낮다 — 17.0억 이하 매물이 나오면 즉시 상위권.</p>
-    <p><span class="b">두 갈래는 유지.</span> 넓은 집에 정착하고 교육·하방을 다 잡는 갈래(경남 115·정든 101 유형)는 매물이 다시 나오면 잡고, 그 전까지는 15억 안팎 84㎡(청구·센트럴·LG 1층)가 실행 가능한 1순위다. 38·36세, 두 아들 3·1세 — 지금 사는 집이 아이들 초·중·고를 다 보내는 집이고, 1990년대 단지라면 2030년대 후반 재건축까지 함께 가는 집이다.</p>
-    <p><span class="b">시장.</span> 이번 상승 국면의 후반부다. 거래가 말랐고(무지개 LG 12개월 4건, 야탑 선경 매물 24개월치), 무지개의 실거래 전세가율은 41%로 값의 41%가 재건축 기대다. 잔금이 내년 11월인 건 유리하다. 호가가 아니라 실거래에 붙여 산다.</p>
-  </div>
-
-  <h3>상위 후보 한눈에 <span class="note">(매물 2026.09.15 기준)</span></h3>
-  <p class="swipe">표는 옆으로 밀어서 봅니다. 맨 왼쪽 항목 열은 고정됩니다.</p>
-  <div class="scroll">
-  <table class="wide">
-    <tr><th></th><th>정든 1단지 101 (정자)</th><th>무지개 청구 85 (오리)</th><th>탑 경남 115 (야탑)</th><th>센트럴타운 85 (여수)</th><th>판교원 7·12단지 (판교)</th></tr>
-    <tr>
-      <td>급지 / 얻는 것</td>
-      <td>4.6 / 37평·정자 학원가·불정초 인접·정자중 1.8·중앙고</td>
-      <td>2.7 / 여유 현금 최대·매물 2개월치·불곡초·불곡중</td>
-      <td>3.0 / 42평·돌마초 차 없는 길·이매중·전세가율 58</td>
-      <td>2.4 / 2012년·주차·이주 위험 0·하락장 거래 유지</td>
-      <td>3.4 / 판교초 1.2·낙원중 1.2·낙생고 1.3·2009년</td>
-    </tr>
-    <tr>
-      <td>내주는 것</td>
-      <td>KB 매물은 19.3억뿐(1층 16억 확인 필요)·1층·소단지·미수리</td>
-      <td>값의 41%가 기대·낙폭 −22%·구축 85</td>
-      <td>707동 1층 빠짐, 705동 2층 17.8은 상한 초과</td>
-      <td>야탑중 2.7·학원가 없음·상승 참여 약함</td>
-      <td>호가 17.8~20.5(80㎡)·18.0(102㎡)로 상한 초과, 실거래 15.6~16.0</td>
-    </tr>
-    <tr>
-      <td>KB / 대출 / 총부채</td>
-      <td class="n">17.50 / 4억 / 6억</td>
-      <td class="n">14.40 / 5.8억 / 5.8억</td>
-      <td class="n">16.75 / 4억 / 6억</td>
-      <td class="n">14.35 / 5.7억 / 5.7억</td>
-      <td class="n">16.50 / 4억 / 6억</td>
-    </tr>
-    <tr>
-      <td>필요 현금 / 여유(18억)</td>
-      <td>19.3억 매물: 상한 밖 · 16억 1층이면 13.6 / <span class="pos">+0.4억</span></td>
-      <td>9.5~10.7 / <span class="pos">+1.6~+2.7억</span></td>
-      <td>14.8 / <span class="neg">−0.8</span> (17.0 이하면 가능)</td>
-      <td>9.0~9.9 / <span class="pos">+2.3~+3.3억</span></td>
-      <td>17.8 매물: 14.6 / <span class="neg">−0.6억</span> · 17.0 이하면 가능</td>
-    </tr>
-    <tr>
-      <td>10년 상승 금액 / 낙폭 / 하락장 회전 유지</td>
-      <td>+12.4억(1건) / −12%(거래 없음) / 17%</td>
-      <td>+9.2억 / −22% / 51%</td>
-      <td>+7.6억(25년) / −5%(거래 없음) / 38%</td>
-      <td>+7.8억 / −19% / 49%</td>
-      <td>+9.3억(7단지) / −11% / 42%</td>
-    </tr>
-  </table>
-  </div>
+<h2>결론 — <b>한 번 사서 정착</b>, 실패하지 않는 집</h2>
+<div class="card top">
+<p style="margin:0"><b>전제.</b> 2027년 11월 전세 만기에 맞춰 사서 10년 이상 산다. 갈아타기는 후순위(취득세·중개 1.5~2억 + 그 시점 금리·규제 위험). 84㎡면 충분하고, 노후 자산이므로 "많이 오를 집"보다 <b>"덜 빠지고 버틸 수 있는 집"</b>.</p>
+</div>
+<div class="kv">
+<div><div class="k">보유 현금 (27.11 예상)</div><div class="v">약 12억</div><div class="s">보증금 6.1 + 매도금·예적금·적립</div></div>
+<div><div class="k">총부채 상한</div><div class="v">6억</div><div class="s">대출 6억, 또는 대출 4억+추가 자금 2억 — 갚을 돈은 같다</div></div>
+<div><div class="k">총지출 상한</div><div class="v">18억</div><div class="s">집값 기준 약 16.8억 (부대비용 포함)</div></div>
+<div><div class="k">대출 구간의 경계</div><div class="v">KB 15억</div><div class="s">이하면 KB×40%≈6억 · 넘으면 4억</div></div>
+</div>
+<div class="card">
+<h3 style="margin-top:0">종합 순위 <span class="small">(정착 22 · 하방자산 22 · 교육 18 · 급지 15 · 자금 12 · 통근 8 · 평판 3)</span></h3>
+<div class="rankrow hl"><span class="n">1. 정든 1단지 101 <span class="small">정자</span></span><span class="bar"><i style="width:73%"></i></span><span class="v">3.65</span></div>
+<div class="rankrow hl"><span class="n">2. 무지개 청구 85 <span class="small">오리</span></span><span class="bar"><i style="width:72.4%"></i></span><span class="v">3.62</span></div>
+<div class="rankrow hl"><span class="n">3. 탑 경남 115 <span class="small">야탑</span></span><span class="bar"><i style="width:71.6%"></i></span><span class="v">3.58</span></div>
+<div class="rankrow hl"><span class="n">4. 센트럴타운 84 <span class="small">여수</span></span><span class="bar"><i style="width:71%"></i></span><span class="v">3.55</span></div>
+<div class="rankrow"><span class="n">5. 판교원 12단지 102</span><span class="bar"><i style="width:71%"></i></span><span class="v">3.55</span></div>
+<div class="rankrow"><span class="n">6. 판교원 7단지 80</span><span class="bar"><i style="width:70.4%"></i></span><span class="v">3.52</span></div>
+<div class="rankrow"><span class="n">7. 판교원 9단지 85</span><span class="bar"><i style="width:70%"></i></span><span class="v">3.50</span></div>
+<div class="rankrow"><span class="n">8. 무지개 LG 85</span><span class="bar"><i style="width:68.2%"></i></span><span class="v">3.41</span></div>
+<div class="rankrow"><span class="n">9. 연꽃 4단지 102</span><span class="bar"><i style="width:67%"></i></span><span class="v">3.35</span></div>
+<div class="rankrow"><span class="n">10. 장미 현대 85</span><span class="bar"><i style="width:62.4%"></i></span><span class="v">3.12</span></div>
+<div class="rankrow"><span class="n">11. 동부·코오롱 85</span><span class="bar"><i style="width:60.2%"></i></span><span class="v">3.01</span></div>
+<div class="rankrow"><span class="n">12. 탑 선경 84</span><span class="bar"><i style="width:56.8%"></i></span><span class="v">2.84</span></div>
+<p class="small" style="margin-top:8px">상위 네 곳 차이는 0.1 안 — 가중치 하나로 뒤집힌다. 급지를 올리면 <b>정든</b>, 교육이면 <b>청구·정든·경남 사실상 동률</b>, 자금·하방·환금성이면 <b>청구·센트럴</b>. 판교원은 학군·급지 최상인데 호가(17.8억+)가 상한을 넘어 5~7위 — <b>17.0억 이하 매물이 나오면 1위권</b>.</p>
+</div>
+<div class="note"><b>9/21 업데이트.</b> 탑 경남 705동 4층 115㎡ <b>17.0억</b>이 새로 나왔다(전세 7.6억 승계 · 27.11.28 협의입주). 이 매물이 유효하면 경남의 자금 점수가 회복돼 <b>3.70으로 1위</b>. 단 여유 현금 0~0.5억뿐이라 버티는 체력은 청구·센트럴(여유 2~3억)이 앞선다.</div>
 </section>
 
 <section id="s2">
-  <p class="eyebrow">돈의 규칙</p>
-  <h2>부채는 <em>6억</em>, 지출은 <em>18억</em> — 15억 선은 편의이지 안전선이 아니다</h2>
-
-  <div class="cols3">
-    <div class="box">
-      <b>갚을 돈은 어느 쪽이든 6억</b>
-      <p>KB 15억 이하면 대출 6억. 넘으면 대출 4억 + 추가 자금 2억. 총부채는 같고, 오히려 후자가 월 부담이 100만 적다(대출 4억 월 약 195만 + 추가 자금 2억, 대출 6억 월 약 290만). 15억 선의 의미는 "추가 자금을 안 써도 되느냐"뿐이다.</p>
-    </div>
-    <div class="box">
-      <b>진짜 상한은 총지출 18억</b>
-      <p>현금 12억 + 부채 6억. 집값 + 인테리어 + 취득세 3.3% + 중개 0.5% + 이사·예비 1,500만이 18억 안에 들어야 한다. 집값으로는 약 16.8억. 이 선을 넘는 집은 후보가 아니다.</p>
-    </div>
-    <div class="box">
-      <b>두 번 이사는 1.1~1.4억</b>
-      <p>2033~34년에 18~20억 집으로 갈아타면 취득세 6~6.6천만 + 매도·매수 중개수수료 2천만 + 이사·인테리어 3~5천만. 1세대 1주택으로 10년 보유·거주하면 장기보유특별공제로 양도세는 사실상 남지 않아 비용에서 뺐다. 아이 전학은 별도. 지금 1.1~1.4억을 더 주고 10년 살 집을 사는 것과 같은 돈이다.</p>
-    </div>
-  </div>
-
-  <h3>인테리어 가정과 부대비용</h3>
-  <p>샷시 포함 올수리 → 도배 500만 / 부분 수리 → 샷시·도배 2천만 / 미수리 구축 → 올수리 5천만 / 기본 상태 구축 → 7~8천만 / 2012년 여수동 → 도배. 잔금 시점 시세가 대출 기준이라 계약 전 사전심사와 "대출 한도 미달 시 해제" 특약을 넣는다.</p>
-
-  <h3>정착과 재건축은 부딪힌다</h3>
-  <p>1990년대 단지는 어디든 2030년대에 이주가 올 수 있다. 선도지구(시범·샛별·양지)는 2029~30년이라 정착과 정면충돌이고, 후속 단지(무지개·야탑)는 2030년대 후반이라 아이들이 고등학생 이후다. 여수동은 재건축이 없어 이주 위험이 0이다. 그래서 "자금이 아쉬우면 선도지구 59㎡"는 자산으로는 가장 강하지만 정착 1순위와 양립하지 않아 후보에서 뺐다.</p>
-
-  <h3>잔금까지의 순서</h3>
-  <div class="tl">
-    <div><b>2026.9 ~ 2027.5</b><span>후보 단지 매물·KB시세 매월 기록</span></div>
-    <div><b>2027.6 ~ 8</b><span>임장 · 세안고 매물 확인, 은행 사전심사(15억 구간)</span></div>
-    <div><b>2027.8 ~ 9</b><span>매매계약 · 잔금 11월 초, 대출 미달 시 해제 특약</span></div>
-    <div><b>2027.9 초</b><span>임대인에 계약 종료 통보(내용증명)</span></div>
-    <div><b>2027.11 초</b><span>보증금 수령 → 잔금 → 이사</span></div>
-  </div>
-
-  <div class="quote" style="border-left-color:var(--line2);background:#F5F7F8">
-    <p>전세보증금 6.1억이 잔금의 절반이라 두 거래가 같은 날 묶인다. 매매 잔금일을 전세 만기(11월 초)에 맞추고, 임대인에게는 만기 2개월 전까지 종료 통보를 내용증명으로 남긴다. "세입자 있는 집 + 임대차 만기 2027년 10~11월" 매물은 일정이 맞고 사려는 사람이 적어 협상력이 생긴다.</p>
-  </div>
+<h2>후보를 <b>한 장씩</b></h2>
+<div class="card cd top">
+<h3>정든 1단지 101㎡ · 1층</h3><div class="sub">정자동 · 급지 4.6 · 1995년 · 116세대(101타입) · KB 17.50 · 대출 4억+추가 2억</div>
+<div class="row"><span class="get">얻는 것</span> 37평 · 불정초 인접 · 정자중 1.8등급 · 분당중앙고(분당 상위권) · 정자 학원가 도보 · "분당 대장 동네"</div>
+<div class="row"><span class="give">내주는 것</span> KB 매물은 7층 19.3억뿐(네이버 1층 16억은 생존 확인 필요) · 1층 · 소단지 · 미수리 0.8억</div>
+<div class="row"><b>자금</b> 1층 16억이면 총지출 17.6억 → 여유 +0.4억</div>
+</div>
+<div class="card cd top">
+<h3>무지개 청구 85㎡</h3><div class="sub">구미동(오리) · 급지 2.7 · 1995년 · 572세대 · KB 14.40 · 대출 5.8억</div>
+<div class="row"><span class="get">얻는 것</span> 여유 현금 최대(+1.6~2.7억) · 매물 2개월치로 가장 귀함 · 불곡초(소로 1회)→불곡중 · 통근 15~20분</div>
+<div class="row"><span class="give">내주는 것</span> 값의 41%가 재건축 기대(전세가율 41→39%) · 지난 하락장 −22% · 구축 85</div>
+<div class="row"><b>자금</b> 14.4(1층)~15.5억 → 여유 +1.6~2.7억. 하락장 회전 유지 51%로 실수요 검증</div>
+</div>
+<div class="card cd top">
+<h3>탑 경남 115㎡ (42평)</h3><div class="sub">야탑동 탑마을 · 급지 3.0 · 1994년 · 102세대(115타입) · KB 16.75 · 대출 4억+추가 2억</div>
+<div class="row"><span class="get">얻는 것</span> 42평 남향 · 돌마초 차 없는 길 · 이매중(동별 확인 필수) · 전세가율 58% · 주차 여유 · "야탑에서 제일 괜찮은 아파트"</div>
+<div class="row"><span class="give">내주는 것</span> 총지출 18억 턱걸이 — 여유 0~0.5억 · 거래가 얇아 낙폭 −5%는 검증 안 된 숫자</div>
+<div class="row"><b>자금</b> 705동 4층 17.0억(신규): 총지출 18.0억. 협상 3%면 17.5억, 여유 +0.5억</div>
+</div>
+<div class="card cd top">
+<h3>센트럴타운 84㎡</h3><div class="sub">여수동 · 급지 2.4 · 2012년 · 84 전 타입 약 1,000세대 · KB 14.45 · 대출 5.8억</div>
+<div class="row"><span class="get">얻는 것</span> 신축급 · 주차 여유 · 재건축 이주 위험 0 · 하락장에도 거래 유지(회전 2.9%) · 전세가율 54%</div>
+<div class="row"><span class="give">내주는 것</span> 야탑중 2.7등급 · 학원가 없음 · 10년 상승 +134%로 분당 구축의 3분의 2</div>
+<div class="row"><b>자금</b> 14.0~15.5억 매물 다수 → 여유 +2.3~3.3억. 현금이 가장 넉넉히 남는 선택</div>
+</div>
+<div class="card cd">
+<h3>판교원마을 7·9·12단지</h3><div class="sub">판교동 · 급지 3.4 · 2009년 · 판교초 1.2 → 낙원중 1.2 · 낙생고 1.3 — 후보 중 학군 최상</div>
+<div class="row"><span class="give">지금은</span> 7단지 80㎡ 호가 17.8~20.5(실거래 15.6~16.0) · 12단지 102㎡ 18.0 · 9단지 85㎡ 18.0+ — 전부 상한 초과</div>
+<div class="row"><b>규칙</b> 80㎡ 이상 · 17.0억 이하 매물 출현 시 즉시 1순위로 검토</div>
+</div>
+<details><summary>하위 후보와 제외 사유</summary>
+<ul class="small" style="font-size:14px">
+<li><b>무지개 LG 85</b> (3.41) — 210동 1층 15.3 특올수리는 여유 +1.9억으로 매력. 다만 구미초 등굣길 2회 횡단, 12개월 거래 5건뿐.</li>
+<li><b>연꽃 4단지 102</b> (3.35) — 9/21에 15.0억(저층 남향) 등장, 여유 +2.1억. 신축급 38평. 학군(야탑중)과 상승 참여가 약점.</li>
+<li><b>장미 현대·동부·코오롱</b> (3.01~3.12) — 학군(야탑중)·주차(0.79대)·16억대 호가. 동부 1층 15.7, 현대 12층 15.7이 그나마.</li>
+<li><b>탑 선경 84</b> (2.84) — 매물 44건 적체(24개월치), 매송초 원거리, 어느 가중치로도 상위에 못 온다.</li>
+<li><b>제외</b> — 미금·금곡(84가 20억/59가 15~16억), 선도지구 59㎡(2029~30 이주가 정착과 충돌), 야탑 84 신규 매수.</li>
+</ul></details>
 </section>
 
 <section id="s3">
-  <p class="eyebrow">시세와 매물</p>
-  <h2>KB시세·호가·실거래 — 어디까지가 예산 안인가</h2>
-  <p class="sub">KB 15억 이하는 대출 6억, 15억 초과는 대출 4억 + 추가 자금 2억 구간이다.</p>
-
-  <div class="scroll">
-  <table>
-    <tr><th>단지·타입</th><th class="n">입주</th><th class="n">KB 일반가</th><th>호가 범위</th><th class="n">매물</th><th>실거래 연평균 (건수)</th><th>부채 구성</th><th>비고</th></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td class="n">2012</td><td class="n b">14.35</td><td>14.0~16.7</td><td class="n">14</td><td>13.58 (26년 7건)</td><td class="pos">6억</td><td>주차 여유(일부 후기 부족)</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td class="n">1995</td><td class="n b">14.40</td><td>14.4~16.0</td><td class="n">3</td><td>14.13 (26년 13건)</td><td class="pos">6억</td><td>주차 0.97대</td></tr>
-    <tr class="hl"><td>무지개 LG 85</td><td class="n">1995</td><td class="n b">14.65</td><td>15.3~16.2</td><td class="n">3</td><td>14.82 (26년 3건)</td><td class="pos">6억</td><td>1층 15.3은 샷시 포함 특올수리</td></tr>
-    <tr class="hl"><td>연꽃 4단지 102</td><td class="n">2012</td><td class="n b">14.65</td><td>15.8~16.2</td><td class="n">3</td><td>14.02 (26년 6건)</td><td class="pos">6억</td><td>402동 9층 15.8 신규</td></tr>
-    <tr><td>탑 경남 84</td><td class="n">1994</td><td class="n b">15.00</td><td>16.8~18.0</td><td class="n">2</td><td>14.75 (26년 2건)</td><td class="pos">6억</td><td>후보 제외 — 64세대·동향 매물뿐</td></tr>
-    <tr><td>탑 선경 84</td><td class="n">1992</td><td class="n b">15.00</td><td>16.1~17.5</td><td class="n">14</td><td>15.65 (26년 2건)</td><td class="pos">6억</td><td>주차 0.81대 · 매물 14건으로 증가</td></tr>
-    <tr><td>장미 동부 85</td><td class="n">1993</td><td class="n b">16.00</td><td>15.7~17.5</td><td class="n">6</td><td>15.34 (26년 8건)</td><td>4억+2억</td><td>134동 2층 16.3→16.1 인하</td></tr>
-    <tr><td>장미 코오롱 85</td><td class="n">1993</td><td class="n b">16.00</td><td>16.3~17.5</td><td class="n">4</td><td>13.63 (26년 3건)</td><td>4억+2억</td><td>주차 0.79대</td></tr>
-    <tr><td>장미 현대 85</td><td class="n">1993</td><td class="n b">16.20</td><td>15.5~16.9</td><td class="n">9</td><td>15.52 (26년 8건)</td><td>4억+2억</td><td>주차난</td></tr>
-    <tr><td>판교원 7단지 80</td><td class="n">2009</td><td class="n b">16.50</td><td>17.8~20.5</td><td class="n">8</td><td>16.00 (26년 3건)</td><td>4억+2억</td><td>초품아(판교초) · 호가가 KB보다 8~24% 높음</td></tr>
-    <tr><td>판교원 12단지 102</td><td class="n">2009</td><td class="n b">16.50</td><td>18.0 (1층)</td><td class="n">1</td><td>16.00 (26년 1건)</td><td>4억+2억</td><td>분양전환 단지 · 38평</td></tr>
-    <tr><td>탑 경남 115</td><td class="n">1994</td><td class="n b">약 16.5</td><td>17.8 (1층)</td><td class="n">1</td><td>13.61 (25년 5건)</td><td>4억+2억</td><td>707동 1층 16.8 빠짐 · 705동 2층만</td></tr>
-    <tr><td>정든 1단지 101</td><td class="n">1995</td><td class="n b">17.50</td><td>19.3~20.0</td><td class="n">1</td><td>17.85 (26년 1건)</td><td>4억+2억</td><td>KB엔 7층 19.3~20만 · 네이버 1층 16억은 확인 필요</td></tr>
-    <tr><td>판교원 9단지 85</td><td class="n">2009</td><td class="n b">17.75</td><td>18.5 (1층)</td><td class="n">0</td><td>17.90 (26년 3건)</td><td>4억+2억</td><td>호가 미조사 · 최근 실거래 18.5</td></tr>
-  </table>
-  </div>
-
-  <h3>실거래와 호가를 합쳐 본 "추정 계약가"</h3>
-  <p class="sub">계약은 최저 호가 근처에서 이뤄진다. 추정 계약가 = 최저 호가 × (1 − 협상 여지). 협상 여지는 거래가 활발하고 매물이 적은 단지(청구·LG) 1%, 보통(현대·센트럴·동부·연꽃) 2%, 매물이 많고 거래가 마른 단지(선경·코오롱) 4%, 대형·1층·표본 얇음(정든·경남 115) 3%. 마지막 열의 "실거래 대비"는 그 값에 계약하면 최근 팔린 값보다 얼마나 비싸게 사는지다 — 이게 클수록 호가가 실거래를 앞서 간 단지다.</p>
-  <div class="scroll">
-  <table>
-    <tr><th>단지·타입</th><th>최근 4분기 실거래 평균 (건)</th><th class="n">최저 호가</th><th class="n">협상 여지</th><th class="n">추정 계약가</th><th class="n">실거래 대비</th><th>읽기</th></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td>13.4 (8)</td><td class="n">14.0</td><td class="n">2%</td><td class="n b">13.7</td><td class="n pos">+2%</td><td>실거래와 붙어 있음, 14억 안팎 성사</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td>13.8 (18)</td><td class="n">14.4</td><td class="n">1%</td><td class="n b">14.3</td><td class="n pos">+3%</td><td>거래 활발, 14억 초반</td></tr>
-    <tr><td>무지개 LG 85</td><td>14.8 (3)</td><td class="n">15.3</td><td class="n">1%</td><td class="n b">15.1</td><td class="n pos">+2%</td><td>표본 3건, 15억 안팎</td></tr>
-    <tr><td>장미 현대 85</td><td>15.2 (10)</td><td class="n">15.5</td><td class="n">2%</td><td class="n b">15.2</td><td class="n pos">+0%</td><td>1층 15.5 기준. 중층은 16.0~16.5</td></tr>
-    <tr><td>장미 동부 85</td><td>15.3 (8)</td><td class="n">15.7</td><td class="n">2%</td><td class="n b">15.4</td><td class="n pos">+0%</td><td>1층 15.7 기준. 중층 16.3~</td></tr>
-    <tr><td>탑 선경 84</td><td>13.3 (7)</td><td class="n">16.1</td><td class="n">4%</td><td class="n b">15.5</td><td class="n neg">+17%</td><td>실거래보다 17% 비싸게 사는 셈 — 급매 아니면 보류</td></tr>
-    <tr><td>연꽃 4단지 102</td><td>14.0 (6)</td><td class="n">15.8</td><td class="n">2%</td><td class="n b">15.5</td><td class="n neg">+10%</td><td>실거래보다 12% 비쌈</td></tr>
-    <tr><td>장미 코오롱 85</td><td>13.3 (5)</td><td class="n">16.3</td><td class="n">4%</td><td class="n b">15.6</td><td class="n neg">+17%</td><td>실거래보다 17% 비쌈, 거래 멈춤 — 보류</td></tr>
-    <tr><td>탑 경남 115</td><td>13.6 (5)</td><td class="n">17.8</td><td class="n">3%</td><td class="n b">17.3</td><td class="n neg">+27%</td><td>705동 2층 17.8 — 상한 초과, 17.0 이하로 협상돼야 가능</td></tr>
-    <tr><td>판교원 7단지 80</td><td>15.6 (7)</td><td class="n">17.8</td><td class="n">3%</td><td class="n b">17.3</td><td class="n neg">+11%</td><td>호가 17.8~20.5 vs 실거래 15.6 — 판교 프리미엄 최대, 17.0 이하면 검토</td></tr>
-    <tr><td>판교원 12단지 102</td><td>15.5 (2)</td><td class="n">18.0</td><td class="n">3%</td><td class="n b">17.5</td><td class="n neg">+13%</td><td>호가 18.0, 실거래 16.0(1건) — 상한 밖, 17.0 이하면 검토</td></tr>
-    <tr><td>판교원 9단지 85</td><td>17.2 (6)</td><td class="n">18.5</td><td class="n">2%</td><td class="n b">18.1</td><td class="n neg">+5%</td><td>KB 17.75 · 실거래 18.5 — 상한 밖</td></tr>
-    <tr><td>정든 1단지 101</td><td>14.6 (7)</td><td class="n">19.3</td><td class="n">3%</td><td class="n b">18.7</td><td class="n neg">+28%</td><td>KB 매물 7층 19.3~20 — 상한 밖. 1층 16억은 확인 필요</td></tr>
-  </table>
-  </div>
-
-  <div class="cols">
-    <div>
-      <h4>호가와 시세의 괴리</h4>
-      <ul>
-        <li>센트럴타운·장미 현대·동부는 최저 호가가 KB보다 낮다. 매물이 많아 매도자끼리 경쟁 중.</li>
-        <li>탑 경남 84(+12%)·선경(+7%)은 KB보다 높게 부르고, 실거래 대비로는 선경·코오롱이 +21~22%다. 부르는 값과 팔리는 값이 가장 벌어진 곳.</li>
-        <li>정든 1단지는 KB 목록에 7층 19.3~20만 남았다. 네이버의 1층 16억(KB 대비 −8.6%)은 아직 있는지 확인이 필요하다.</li>
-      </ul>
-    </div>
-    <div>
-      <h4>총지출 18억 기준 집값 상한 약 16.8억</h4>
-      <ul>
-        <li>추정 계약가로 봐도 야탑 84㎡는 상한 끝에 걸리고, 경남 115(17.8)·정든(19.3)·판교원(17.8~18.5)은 지금 매물로는 상한 밖이다. 판교원 7단지는 호가가 실거래보다 14~31% 높아 후보 중 호가 프리미엄이 가장 크다.</li>
-        <li>실거래 평균이 KB보다 낮은 코오롱(13.3 vs 16.0)·선경(13.3 vs 15.0)은 시세가 거래를 앞서 간다. 여기서는 호가를 기준가로 삼으면 안 된다.</li>
-        <li>거래가 활발한 청구·현대·센트럴은 호가와 실거래가 5% 안에 붙어 있어 협상 여지는 작지만 값이 믿을 만하다.</li>
-      </ul>
-    </div>
-  </div>
+<h2><b>돈의 규칙</b> — 15억 선은 편의이지 안전선이 아니다</h2>
+<div class="card">
+<ul style="margin:0">
+<li><b>갚을 돈은 어느 쪽이든 6억.</b> KB 15억 이하면 대출 6억. 넘으면 대출 4억+추가 자금 2억 — 총부채는 같고, 후자가 월 부담 약 100만 원 가볍다(추가 자금은 무이자). 15억 선의 의미는 "추가 자금을 안 써도 되느냐"뿐.</li>
+<li><b>진짜 상한은 총지출 18억.</b> 집값+인테리어+취득세 3.3%+중개 0.5%+이사·예비 1,500만이 18억 안. 집값으로 약 16.8억.</li>
+<li><b>두 번 이사는 1.5~2억.</b> 나중에 갈아타면 취득세·중개·이사·양도세로 그만큼 나간다. 지금 1.5~2억 더 주고 10년 살 집을 사는 것과 같은 돈.</li>
+</ul>
+</div>
+<div class="card">
+<h3 style="margin-top:0">잔금까지의 순서</h3>
+<div class="step now"><span class="dot"><i></i></span><span class="tx"><span class="t">지금 ~ 2027.5</span><span class="d"> — 후보 단지 매물·KB시세 매월 기록 (지금 여기)</span></span></div>
+<div class="step"><span class="dot"><i></i></span><span class="tx"><span class="t">2027.6 ~ 8</span><span class="d"> — 임장 · 세안고 매물 확인 · 은행 사전심사(15억 구간)</span></span></div>
+<div class="step"><span class="dot"><i></i></span><span class="tx"><span class="t">2027.8 ~ 9</span><span class="d"> — 매매계약, 잔금 11월 초 · "대출 한도 미달 시 해제" 특약</span></span></div>
+<div class="step"><span class="dot"><i></i></span><span class="tx"><span class="t">2027.9 초</span><span class="d"> — 임대인에 계약 종료 통보(내용증명)</span></span></div>
+<div class="step"><span class="dot"><i></i></span><span class="tx"><span class="t">2027.11 초</span><span class="d"> — 보증금 6.1억 수령 → 잔금 → 이사</span></span></div>
+<p class="small" style="margin:4px 0 0">보증금이 잔금의 절반이라 두 거래가 같은 날 묶인다. "세입자 만기 2027년 10~11월" 매물은 일정이 맞고 사려는 사람이 적어 협상력이 생긴다 — 경남 705동 4층(만기 11.28)이 정확히 이 유형.</p>
+</div>
 </section>
 
 <section id="s4">
-  <p class="eyebrow">학교와 통근</p>
-  <h2>등교 동선과 학군 — <em>탑 경남·무지개 청구·정든</em>이 앞선다</h2>
-  <p class="sub">초등학교는 단지 안이거나 횡단보도 없이 갈 수 있어야 높은 점수(접근 50%). 학교 등급은 리치고 기준으로 초등 20%, 중학교 30%. 중학교는 이매중(1.5등급) &gt; 구미중·불곡중(1.5~1.6) &gt; 정자중(1.8) &gt; 야탑중(2.7~3). 고등학교는 정자동 분당중앙고가 분당 상위권. 성남 중학교는 학군 안에서 지망·추첨 배정이라 단지가 특정 학교를 보장하진 않는다. 학원가는 수내·정자에 있고 야탑엔 없어, 중학생부터는 어디 살든 수내·정자로 보내게 된다.</p>
-
-  <div class="scroll">
-  <table>
-    <tr><th>단지</th><th>배정 초등 (등급)</th><th>접근</th><th>중학교 (등급)</th><th class="n">학교 점수</th></tr>
-    <tr class="hl"><td>탑 경남</td><td>돌마초 1.8 (상위 20%)</td><td>단지 내 도보, 차 없는 길</td><td>이매중 1.4~1.5 (9%) · 동별 확인</td><td class="n b">4.8</td></tr>
-    <tr class="hl"><td>무지개 청구</td><td>불곡초 1.5 (10%)</td><td>통행 적은 4차선 1회</td><td>불곡중·구미중 1.5~1.6</td><td class="n b">4.2</td></tr>
-    <tr class="hl"><td>정든 1단지</td><td>불정초 1.6 (14%)</td><td>단지 인접</td><td>정자중 1.8 (19%) · 분당중 가능</td><td class="n b">4.5</td></tr>
-    <tr><td>장미 동부·코오롱</td><td>야탑초 2.4 (38%)</td><td>단지 내</td><td>야탑중 2.7~3 (43%)</td><td class="n b">3.6</td></tr>
-    <tr><td>무지개 LG</td><td>구미초 1.4 (7%)</td><td>6차선 + 소로, 2회 횡단</td><td>구미중·불곡중 1.5~1.6</td><td class="n b">3.3</td></tr>
-    <tr><td>장미 현대</td><td>야탑초 2.4</td><td>여수천 우회 시 무횡단</td><td>야탑중 2.7~3</td><td class="n b">3.1</td></tr>
-    <tr><td>센트럴·연꽃</td><td>성남여수초</td><td>4차선 1회</td><td>야탑중 2.7~3</td><td class="n b">2.7</td></tr>
-    <tr><td>탑 선경</td><td>매송초</td><td>원거리 + 6차선</td><td>이매중 (배정 가능)</td><td class="n b">2.3</td></tr>
-    <tr><td>판교원마을 7·9·12단지</td><td>판교초 1.2 (2%) · 낙생초 1.3</td><td>7·9단지 초품아</td><td>낙원중 1.2 · 판교중 1.5 · 낙생고 1.3</td><td class="n b">4.9</td></tr>
-  </table>
-  </div>
-
-  <h3>아내 10시 출근 — 차량 기준 (기흥역 인근)</h3>
-  <p class="sub">등교 8:40~9:00 뒤 바로 출발하면 구미동 15~20분, 정자 20분, 야탑·여수동 25~30분이라 어느 단지든 된다. 대신 <span class="b">주차가 통근 조건</span>이 된다. 1990년대 초 단지 중 장미(0.79대)·탑 선경(0.81대)은 밤 주차가 힘들고, 탑 경남과 2012년 여수동 단지는 여유가 있다.</p>
-  <div class="scroll">
-  <table>
-    <tr><th>단지</th><th>기흥역까지 차량 (아침)</th><th>주차 (대/세대)</th><th>판정</th></tr>
-    <tr><td>무지개 LG · 청구</td><td>약 8km · 15~20분</td><td>LG 1.04 · 청구 0.97</td><td class="pos">여유</td></tr>
-    <tr><td>정든 1단지</td><td>약 10km · 20분</td><td>소단지, 확인</td><td>가능</td></tr>
-    <tr><td>장미 코오롱·동부·현대</td><td>약 14km · 25~30분</td><td>코오롱 0.79 · 동부 최악 · 현대 불편</td><td>가능 · 주차 부담</td></tr>
-    <tr><td>탑 경남</td><td>약 14km · 25~30분</td><td>주차 여유 (거주자)</td><td>가능</td></tr>
-    <tr><td>탑 선경</td><td>약 14km · 25~30분</td><td>0.81 · 주차난</td><td>가능 · 주차 부담</td></tr>
-    <tr><td>센트럴타운·연꽃 4단지</td><td>약 13km · 25~30분</td><td>2012년, 주차 여유</td><td>가능</td></tr>
-    <tr><td>판교원마을</td><td>약 15km · 25~30분 (경부·용서 정체)</td><td>2009년, 주차 여유</td><td>가능</td></tr>
-  </table>
-  </div>
-
-  <div class="quote" style="border-left-color:var(--line2);background:#F5F7F8">
-    <p><span class="b">현장 확인.</span> 무지개 LG는 구미초까지 6차선 무지개사거리와 소로를 두 번 건넌다. 무지개 청구는 통행 적은 4차선 한 번. 장미 현대는 여수천 산책로로 우회하면 무횡단. 탑 경남은 정문 기준 왼쪽 단지가 이매중, 오른쪽이 하탑중이라 동별로 확인해야 한다(707동 포함). 정든 1단지는 정자역 학원 동선이 유흥가를 지나는지 확인.</p>
-  </div>
+<h2>지금이 아니라 <b>내년에 사도 되는가</b> — 그렇다</h2>
+<div class="card">
+<ul style="margin:0">
+<li><b>① 상승은 이미 1년 넘게 진행됐다.</b> 후보 단지들은 2025년 2~4분기에 동시에 출발했고 지금 4~6분기째. 과거 상승기(2018, 2020~21)도 5~7분기 안에 끝났다.</li>
+<li><b>② 오르면서 거래가 말랐다.</b> LG 12개월 5건, 야탑 분기 0~1건, 선경 매물 44건 적체 — 이런 호가는 값이 아니라 희망이다. 청구만 분기 5건씩 거래하며 오른다.</li>
+<li><b>③ 값의 절반 가까이가 기대다.</b> 실거래 전세가율이 청구 39%·LG 36%로 10년 최저. 재건축 기대가 값의 절반 이상을 차지하면 조정 여지도 그만큼 크다.</li>
+</ul>
+</div>
+<div class="note">그래서: 잔금 27년 11월은 <b>유리</b>하다. 기준가는 호가가 아니라 <b>실거래</b>(2025년 평균: 청구 10.8 · LG 10.5 · 센트럴 11.5억)와 지금 사이에 두고, <b>최근 실거래 평균 이하 + 그 가격대 거래 3건 이상</b>일 때만 계약. 조정이 오면 15~20%는 열려 있고, 정착 전제에선 그게 손실이 아니라 매수 기회다.</div>
 </section>
 
 <section id="s5">
-  <p class="eyebrow">채점</p>
-  <h2>정착 · 실패하지 않는 자산 · 급지 기준 — 열두 후보의 점수</h2>
-  <p class="sub">가중치: 정착 적합 22(면적·연식·주차·단지 규모·이주 위험) · 실패하지 않는 자산 22(낙폭, 전세가율, 하락장 회전 유지, 재건축 실체) · 교육 18 · <span class="b">급지 15</span>(20년 관찰 순서: 수내 5.0 &gt; 서현·정자 4.6 &gt; 이매 4.2 &gt; 샛별 3.9 &gt; 금곡 3.6 &gt; 판교원 3.4 &gt; 미금 3.3 &gt; 야탑 탑·장미 3.0 &gt; 오리·무지개 2.7 &gt; 여수 2.4) · 자금 12 · 통근 8 · 평판 3. 각 항목 5점 만점.</p>
-
-  <div class="bars">
-      <div class="bar top"><span class="nm">정든 1단지 101 1층</span><span class="tr"><span class="fl c-sand" style="width:73%"></span></span><span class="vl">3.65</span></div>
-      <div class="bar top"><span class="nm">무지개 청구 85</span><span class="tr"><span class="fl c-blue" style="width:72.4%"></span></span><span class="vl">3.62</span></div>
-      <div class="bar top"><span class="nm">탑 경남 115 1층·2층</span><span class="tr"><span class="fl c-sand" style="width:71.6%"></span></span><span class="vl">3.58</span></div>
-      <div class="bar top"><span class="nm">센트럴타운 85</span><span class="tr"><span class="fl c-blue" style="width:71%"></span></span><span class="vl">3.55</span></div>
-      <div class="bar"><span class="nm">판교원 12단지 102</span><span class="tr"><span class="fl c-sand" style="width:71%"></span></span><span class="vl">3.55</span></div>
-      <div class="bar"><span class="nm">판교원 7단지 80</span><span class="tr"><span class="fl c-sand" style="width:70.4%"></span></span><span class="vl">3.52</span></div>
-      <div class="bar"><span class="nm">판교원 9단지 85</span><span class="tr"><span class="fl c-sand" style="width:70%"></span></span><span class="vl">3.50</span></div>
-      <div class="bar"><span class="nm">무지개 LG 85</span><span class="tr"><span class="fl c-blue" style="width:68.2%"></span></span><span class="vl">3.41</span></div>
-      <div class="bar"><span class="nm">연꽃 4단지 102</span><span class="tr"><span class="fl c-blue" style="width:67%"></span></span><span class="vl">3.35</span></div>
-      <div class="bar"><span class="nm">장미 현대 85</span><span class="tr"><span class="fl c-blue" style="width:62.4%"></span></span><span class="vl">3.12</span></div>
-      <div class="bar"><span class="nm">장미 동부·코오롱 85</span><span class="tr"><span class="fl c-blue" style="width:60.2%"></span></span><span class="vl">3.01</span></div>
-      <div class="bar"><span class="nm">탑 선경 84</span><span class="tr"><span class="fl c-blue" style="width:56.8%"></span></span><span class="vl">2.84</span></div>
-    </div>
-  <p class="legend"><span><i style="background:#2E5AAC"></i>지금 총지출 18억 안에서 살 수 있는 곳</span><span><i style="background:#C99A3E"></i>호가가 상한을 넘어 지금은 못 사는 곳</span><span><i style="background:#15202B"></i>굵은 이름 = 상위 4곳</span></p>
-
-  <div class="scroll" style="margin-top:18px">
-  <table>
-    <tr><th>후보</th><th>항목별 점수 (정착 / 자산 / 교육 / 급지 / 자금 / 통근)</th></tr>
-    <tr class="hl"><td>정든 1단지 101 1층</td><td>3.6 / 3.3 / 4.5 / 4.6 / 1.5 / 4.2</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td>3.0 / 3.4 / 4.2 / 2.7 / 5.0 / 4.5</td></tr>
-    <tr class="hl"><td>탑 경남 115 1층·2층</td><td>3.8 / 3.5 / 4.8 / 3.0 / 2.0 / 3.8</td></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td>4.5 / 3.4 / 2.7 / 2.4 / 5.0 / 3.5</td></tr>
-    <tr><td>판교원 12단지 102</td><td>4.0 / 3.3 / 4.9 / 3.4 / 1.5 / 3.3</td></tr>
-    <tr><td>판교원 7단지 80</td><td>3.5 / 3.6 / 4.9 / 3.4 / 1.5 / 3.3</td></tr>
-    <tr><td>판교원 9단지 85</td><td>3.8 / 3.5 / 4.9 / 3.4 / 1.0 / 3.3</td></tr>
-    <tr><td>무지개 LG 85</td><td>3.2 / 3.1 / 3.3 / 2.7 / 4.8 / 4.5</td></tr>
-    <tr><td>연꽃 4단지 102</td><td>4.5 / 3.0 / 2.7 / 2.4 / 4.2 / 3.3</td></tr>
-    <tr><td>장미 현대 85</td><td>2.8 / 3.3 / 3.1 / 3.0 / 3.0 / 3.8</td></tr>
-    <tr><td>장미 동부·코오롱 85</td><td>2.0 / 3.1 / 3.6 / 3.0 / 3.5 / 3.5</td></tr>
-    <tr><td>탑 선경 84</td><td>2.5 / 2.7 / 2.3 / 3.0 / 3.5 / 3.8</td></tr>
-  </table>
-  </div>
-
-  <h3>점수의 근거</h3>
-  <div class="scroll">
-  <table>
-    <tr><th>후보</th><th>근거 (정착 / 자산 / 교육 / 급지 / 자금 / 통근)</th></tr>
-    <tr class="hl"><td>정든 1단지 101 1층</td><td>37평·1층·300세대·미수리 / 낙폭 −12%는 거래 없어 작은 것·전세가율 46 / 불정초 인접·정자중 1.8·중앙고 / 급지 정자 / KB 매물은 7층 19.3~20뿐, 1층 16억은 확인 필요 / 20분</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td>구축 85·주차 0.97·572세대 / 낙폭 −22%·전세가율 41 — 단, 하락장 회전 유지율 51%·매물 소진 2개월로 실수요 검증 / 불곡초 소로 1회·불곡중 / 급지 오리 / 여유 1.6~2.7억 / 15~20분</td></tr>
-    <tr class="hl"><td>탑 경남 115 1층·2층</td><td>42평 남향·884세대·주차 여유 / 낙폭 −5%는 거래 없어 작은 것·전세가율 58·대지지분 최대 / 돌마초 차 없는 길·이매중(동 확인) / 급지 야탑 탑마을 / 705동 2층 17.8은 상한 초과 / 25~30분</td></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td>2012년·주차·이주 위험 0 / 낙폭 −19%·전세가율 54·하락장 회전 2.9% 유지 / 여수초 4차선·야탑중 2.7 / 급지 여수 / 여유 2.3~3.3억 / 25~30분</td></tr>
-    <tr><td>판교원 12단지 102</td><td>2009년·38평·71세대 타입·분양전환 단지 / 낙폭 −13%(표본 얇음)·전세가율 56 / 판교초·낙원중 / 급지 판교원 / 호가 18.0, 실거래 16.0(1건) — 상한 초과 / 25~30분</td></tr>
-    <tr><td>판교원 7단지 80</td><td>2009년·80㎡·176세대 타입·초품아 / 낙폭 −11%·전세가율 51·하락장 회전 2.8% / 판교초 1.2·낙원중 1.2·낙생고 1.3 / 급지 판교원 / 호가 17.8~20.5로 상한 초과, 17.0 이하면 가능 / 25~30분(경부 정체)</td></tr>
-    <tr><td>판교원 9단지 85</td><td>2009년·1,045세대·84 / 낙폭 −15%·전세가율 47·하락장 회전 1.1% / 판교초·낙원중 / 급지 판교원 / KB 17.75·실거래 18.5 — 상한 밖 / 25~30분</td></tr>
-    <tr><td>무지개 LG 85</td><td>구축·주차 1.04·332세대 / 낙폭 −9%는 거래 없어 작은 것·전세가율 41·유지율 35% / 구미초 1.40나 2회 횡단 / 급지 오리 / 1층 15.3 특올수리 → 여유 1.9억 / 15~20분</td></tr>
-    <tr><td>연꽃 4단지 102</td><td>2012년·38평·주차 여유 / 낙폭 −14%·전세가율 53·하락장 회전 3.0% / 여수초·야탑중 / 급지 여수 / 402동 9층 15.8 → 여유 1.4억</td></tr>
-    <tr><td>장미 현대 85</td><td>주차 불편·기본 상태·2,136세대 / 낙폭 −17%·전세가율 46·소진 4개월 / 야탑초 우회·야탑중 / 급지 야탑 장미 / 여유 0.3~0.5억(중층)</td></tr>
-    <tr><td>장미 동부·코오롱 85</td><td>주차 최악(0.79) / 동부는 하락장 회전 유지율 65%로 최상, 코오롱은 거래 정체 / 야탑초 단지 내·야탑중 / 급지 야탑 장미 / 여유 0.9~1.5억</td></tr>
-    <tr><td>탑 선경 84</td><td>주차 0.81·448세대 / 낙폭 −19%·전세가율 44·유지율 26%·매물 24개월치 / 매송초 원거리 6차선 / 급지 야탑 탑마을 / 여유 0.5~1.1억</td></tr>
-  </table>
-  </div>
-
-  <h3>가중치를 바꾸면 — 민감도</h3>
-  <div class="scroll">
-  <table>
-    <tr><th>전제</th><th>1위</th><th>2위</th><th>3위</th></tr>
-    <tr><td>급지 최우선 (급지 25)</td><td>정든 1단지 101 1층 (3.74)</td><td>무지개 청구 85 (3.54)</td><td>탑 경남 115 1층·2층 (3.49)</td></tr>
-    <tr><td>교육 최우선</td><td>무지개 청구 85 (3.73)</td><td>정든 1단지 101 1층 (3.73)</td><td>탑 경남 115 1층·2층 (3.72)</td></tr>
-    <tr><td>자금 여유 최우선</td><td>무지개 청구 85 (3.89)</td><td>센트럴타운 85 (3.84)</td><td>무지개 LG 85 (3.69)</td></tr>
-    <tr><td>자산(하방·실수요) 최우선</td><td>무지개 청구 85 (3.62)</td><td>센트럴타운 85 (3.56)</td><td>정든 1단지 101 1층 (3.56)</td></tr>
-  </table>
-  </div>
-
-  <div class="quote">
-    <p><span class="b">읽는 법.</span> 상위 네 곳의 차이는 0.1 안이고 가중치 하나로 순서가 바뀐다. 네 가지 가중치 모두 정착을 전제로 한다(징검다리는 취득세·중개수수료·이사·수리 1.1~1.4억과 금리·규제 위험을 지는 것이라 후순위). <span class="b">급지를 올리면 정든(정자), 자금·자산·환금성을 올리면 청구·센트럴, 교육을 올리면 청구·정든·경남 115가 사실상 동률</span>이다. 판교원 세 단지는 교육·급지 점수가 후보 중 최상인데도 5~7위인 이유가 오직 자금(호가 17.8억 이상)이다 — 17.0억 이하 매물이 나오면 급지 최우선·교육 최우선 전제에서 1위로 올라선다. 야탑 84㎡와 탑 선경은 어느 전제로도 상위에 오지 않는다.</p>
-  </div>
+<h2><b>환금성</b> — 하락장에도 팔리는 집인가</h2>
+<div class="card">
+<h3 style="margin-top:0">하락장 회전 유지율 <span class="small">(2022~23 회전율 ÷ 상승장 회전율 — 높을수록 실수요)</span></h3>
+<div class="brow"><span class="n">장미 동부</span><span class="bar"><i style="width:65%;background:var(--acc)"></i></span><span class="v"><b>65%</b> 초품아 실수요</span></div>
+<div class="brow"><span class="n"><b>무지개 청구</b></span><span class="bar"><i style="width:51%;background:var(--acc)"></i></span><span class="v"><b>51%</b> 실수요 검증</span></div>
+<div class="brow"><span class="n"><b>센트럴타운</b></span><span class="bar"><i style="width:49%;background:var(--acc)"></i></span><span class="v"><b>49%</b> 신축급</span></div>
+<div class="brow"><span class="n">판교원 7단지</span><span class="bar"><i style="width:42%;background:var(--acc)"></i></span><span class="v"><b>42%</b></span></div>
+<div class="brow"><span class="n"><b>탑 경남 115</b></span><span class="bar"><i style="width:38%;background:#9AA5B1"></i></span><span class="v"><b>38%</b> 표본 얇음</span></div>
+<div class="brow"><span class="n">무지개 LG</span><span class="bar"><i style="width:35%;background:#9AA5B1"></i></span><span class="v"><b>35%</b></span></div>
+<div class="brow"><span class="n">장미 코오롱</span><span class="bar"><i style="width:35%;background:#9AA5B1"></i></span><span class="v"><b>35%</b></span></div>
+<div class="brow"><span class="n">탑 선경</span><span class="bar"><i style="width:26%;background:#9AA5B1"></i></span><span class="v"><b>26%</b> 투자수요형</span></div>
+<div class="brow"><span class="n"><b>정든 1단지</b></span><span class="bar"><i style="width:17%;background:#9AA5B1"></i></span><span class="v"><b>17%</b> 연 1건</span></div>
+<p class="small" style="margin-top:6px">파란 막대 = 하락장에도 절반 가까이 거래가 유지된 곳. 회색 = 하락장에 거래가 사실상 멈춘 곳 — 이들의 "작은 낙폭"(LG −9%, 경남 −5%, 정든 −12%)은 거래가 없어 작아 보이는 것이라 하방 방어의 근거로 쓰면 안 된다.</p>
+</div>
+<div class="card">
+<h3 style="margin-top:0">매물 소진 개월 <span class="small">(매물 ÷ 최근 12개월 실거래 월평균 · 9/15 기준)</span></h3>
+<div class="brow"><span class="n"><b>무지개 청구</b></span><span class="bar"><i style="width:7%;background:var(--ok)"></i></span><span class="v"><b>2개월</b> 귀함</span></div>
+<div class="brow"><span class="n">장미 현대</span><span class="bar"><i style="width:13%;background:var(--ok)"></i></span><span class="v"><b>4개월</b></span></div>
+<div class="brow"><span class="n"><b>센트럴타운</b></span><span class="bar"><i style="width:20%;background:var(--ok)"></i></span><span class="v"><b>6개월</b></span></div>
+<div class="brow"><span class="n">연꽃·판교12</span><span class="bar"><i style="width:20%;background:var(--ok)"></i></span><span class="v"><b>6개월</b></span></div>
+<div class="brow"><span class="n">동부·코오롱</span><span class="bar"><i style="width:32%;background:var(--warn)"></i></span><span class="v"><b>9~10개월</b></span></div>
+<div class="brow"><span class="n">LG·<b>정든</b></span><span class="bar"><i style="width:40%;background:var(--warn)"></i></span><span class="v"><b>12개월</b></span></div>
+<div class="brow"><span class="n">판교원 7단지</span><span class="bar"><i style="width:47%;background:var(--red)"></i></span><span class="v"><b>14개월</b></span></div>
+<div class="brow"><span class="n">탑 선경</span><span class="bar"><i style="width:80%;background:var(--red)"></i></span><span class="v"><b>24개월</b> 쌓임</span></div>
+<div class="brow"><span class="n">판교원 9단지</span><span class="bar"><i style="width:100%;background:var(--red)"></i></span><span class="v"><b>30개월</b></span></div>
+<p class="small" style="margin-top:6px">초록 6개월 이하 = 매도자 우위(나오면 바로 빠짐) · 노랑 12개월 이하 · 빨강 12개월 초과 = 쌓임(협상 여지, 환금성 낮음). 경남 115는 12개월 거래 0건(2025년 5건 기준 약 2.4개월).</p>
+</div>
 </section>
 
 <section id="s6">
-  <p class="eyebrow">10년 실거래</p>
-  <h2>10년 실거래가 말하는 두 가지 — <em>오른 돈은 비슷하고, 빠진 폭은 다르다</em></h2>
-  <p class="sub">배율(+105~227%)은 출발가에 따라 크게 갈리지만, 10년간 손에 쥔 돈은 분당 구축 어디나 8~10억이고 여수동만 7억대다. 정착 전제에서는 어디를 사든 상승이 비슷하게 따라온다. 차이는 하락장에서 난다. 전세가율이 높아 실사용 가치가 받치는 곳(센트럴 54%·연꽃 53%·경남 115 58%)은 −5~19%, 재건축 기대가 값의 절반 넘게 차지하는 무지개(41%)는 −22%다. 실패하지 않는 집은 적게 빠진 쪽이다.</p>
-
-  <h3>10년간 오른 돈 — 분당 구축은 어디나 8~10억, 여수동은 7억</h3>
-  <div class="bars">
-      <div class="bar top"><span class="nm">정든 1단지</span><span class="tr"><span class="fl c-blue" style="width:100%"></span></span><span class="vl">+12.4억</span></div>
-      <div class="bar"><span class="nm">판교원 9단지</span><span class="tr"><span class="fl c-green" style="width:86%"></span></span><span class="vl">+10.7억</span></div>
-      <div class="bar"><span class="nm">탑 선경</span><span class="tr"><span class="fl c-blue" style="width:85%"></span></span><span class="vl">+10.5억</span></div>
-      <div class="bar"><span class="nm">장미 현대</span><span class="tr"><span class="fl c-blue" style="width:84%"></span></span><span class="vl">+10.4억</span></div>
-      <div class="bar"><span class="nm">장미 동부</span><span class="tr"><span class="fl c-blue" style="width:81%"></span></span><span class="vl">+10.1억</span></div>
-      <div class="bar"><span class="nm">무지개 LG</span><span class="tr"><span class="fl c-blue" style="width:81%"></span></span><span class="vl">+10.1억</span></div>
-      <div class="bar"><span class="nm">판교원 7단지 80</span><span class="tr"><span class="fl c-green" style="width:75%"></span></span><span class="vl">+9.3억</span></div>
-      <div class="bar top"><span class="nm">무지개 청구</span><span class="tr"><span class="fl c-blue" style="width:74%"></span></span><span class="vl">+9.2억</span></div>
-      <div class="bar"><span class="nm">장미 코오롱</span><span class="tr"><span class="fl c-blue" style="width:67%"></span></span><span class="vl">+8.3억</span></div>
-      <div class="bar top"><span class="nm">센트럴타운</span><span class="tr"><span class="fl c-sand" style="width:63%"></span></span><span class="vl">+7.8억</span></div>
-      <div class="bar top"><span class="nm">탑 경남 115</span><span class="tr"><span class="fl c-blue" style="width:61%"></span></span><span class="vl">+7.6억</span></div>
-      <div class="bar"><span class="nm">연꽃 4단지</span><span class="tr"><span class="fl c-sand" style="width:58%"></span></span><span class="vl">+7.2억</span></div>
-    </div>
-  <p class="legend"><span><i style="background:#2E5AAC"></i>분당 구축 (무지개·야탑·정자)</span><span><i style="background:#3E9E6E"></i>판교원마을 2009년</span><span><i style="background:#C99A3E"></i>여수동 2012년</span></p>
-  <p class="note">배율은 정든 +227%(1건) · 무지개 LG +213% · 장미 현대 +204% · 탑 선경 +202% · 장미 동부 +194% · 무지개 청구 +190% · 장미 코오롱 +155% · 판교원 9단지 +149% · 판교원 7단지 +139% · 센트럴타운 +134% · 탑 경남 115 +127%(25년) · 연꽃 +105%.</p>
-
-  <h3>하락장(2021~24)에서 얼마나 빠졌나 — 전세가율 높은 곳이 덜 빠진다</h3>
-  <div class="bars">
-      <div class="bar top"><span class="nm">탑 경남 115</span><span class="tr"><span class="fl c-green" style="width:23%"></span></span><span class="vl">−5%</span></div>
-      <div class="bar"><span class="nm">무지개 LG</span><span class="tr"><span class="fl c-red" style="width:41%"></span></span><span class="vl">−9%</span></div>
-      <div class="bar"><span class="nm">판교원 7단지 80</span><span class="tr"><span class="fl c-amber" style="width:50%"></span></span><span class="vl">−11%</span></div>
-      <div class="bar top"><span class="nm">정든 1단지</span><span class="tr"><span class="fl c-amber" style="width:55%"></span></span><span class="vl">−12%</span></div>
-      <div class="bar"><span class="nm">판교원 12단지</span><span class="tr"><span class="fl c-green" style="width:59%"></span></span><span class="vl">−13%</span></div>
-      <div class="bar"><span class="nm">연꽃 4단지</span><span class="tr"><span class="fl c-green" style="width:64%"></span></span><span class="vl">−14%</span></div>
-      <div class="bar"><span class="nm">판교원 9단지</span><span class="tr"><span class="fl c-amber" style="width:68%"></span></span><span class="vl">−15%</span></div>
-      <div class="bar"><span class="nm">장미 현대</span><span class="tr"><span class="fl c-amber" style="width:77%"></span></span><span class="vl">−17%</span></div>
-      <div class="bar"><span class="nm">탑 선경</span><span class="tr"><span class="fl c-red" style="width:86%"></span></span><span class="vl">−19%</span></div>
-      <div class="bar top"><span class="nm">센트럴타운</span><span class="tr"><span class="fl c-green" style="width:86%"></span></span><span class="vl">−19%</span></div>
-      <div class="bar"><span class="nm">장미 코오롱</span><span class="tr"><span class="fl c-green" style="width:95%"></span></span><span class="vl">−21%</span></div>
-      <div class="bar top"><span class="nm">무지개 청구</span><span class="tr"><span class="fl c-red" style="width:100%"></span></span><span class="vl">−22%</span></div>
-    </div>
-  <p class="legend"><span><i style="background:#3E9E6E"></i>전세가율 53% 이상 — 실사용 가치가 값의 절반 이상</span><span><i style="background:#D8A93F"></i>46~52%</span><span><i style="background:#C0663F"></i>45% 이하 — 재건축 기대 비중이 큼</span></p>
-  <p class="note">같은 순서의 2026년 전세가율: 58 · 41 · 51 · 46 · 56 · 53 · 47 · 46 · 44 · 54 · 57 · 41. 낙폭은 실거래 연평균 기준이라 KB 월별 기준(9장)과 숫자가 다르다.</p>
-
-  <h3>단지별 상승 이력</h3>
-  <p class="swipe">표는 옆으로 밀어서 봅니다. 맨 왼쪽 단지 열은 고정됩니다.</p>
-  <div class="scroll">
-  <table>
-    <tr><th>단지·타입</th><th class="n">10년 상승률</th><th class="n">10년 상승 금액</th><th class="n">침체기 2016~17</th><th class="n">코로나 상승 2019~21</th><th class="n">현 상승 2024~26</th></tr>
-    <tr class="hl"><td>정든 1단지 101</td><td class="n">+227% (1건)</td><td class="n b">+12.4억</td><td class="n">+10%</td><td class="n">+52%</td><td class="n">+45%</td></tr>
-    <tr><td>무지개 LG 85</td><td class="n">+213%</td><td class="n b">+10.1억</td><td class="n">+8%</td><td class="n">+57%</td><td class="n">+52%</td></tr>
-    <tr><td>장미 현대 85</td><td class="n">+204%</td><td class="n b">+10.4억</td><td class="n">+10%</td><td class="n">+50%</td><td class="n">+61%</td></tr>
-    <tr><td>탑 선경 84</td><td class="n">+202%</td><td class="n b">+10.5억</td><td class="n">+7%</td><td class="n">+63%</td><td class="n">+44%</td></tr>
-    <tr><td>장미 동부 85</td><td class="n">+194%</td><td class="n b">+10.1억</td><td class="n">+7%</td><td class="n">+56%</td><td class="n">+41%</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td class="n">+190%</td><td class="n b">+9.2억</td><td class="n">+9%</td><td class="n">+67%</td><td class="n">+49%</td></tr>
-    <tr><td>장미 코오롱 85</td><td class="n">+155%</td><td class="n b">+8.3억</td><td class="n">+6%</td><td class="n">+50%</td><td class="n">+23%</td></tr>
-    <tr><td>판교원 9단지 85</td><td class="n">+149%</td><td class="n b">+10.7억</td><td class="n">+10%</td><td class="n">+53%</td><td class="n">+31%</td></tr>
-    <tr><td>판교원 7단지 80</td><td class="n">+139%</td><td class="n b">+9.3억</td><td class="n">+6%</td><td class="n">+41%</td><td class="n">+19%</td></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td class="n">+134%</td><td class="n b">+7.8억</td><td class="n">+5%</td><td class="n">+50%</td><td class="n">+30%</td></tr>
-    <tr class="hl"><td>탑 경남 115</td><td class="n">+127% (25년)</td><td class="n b">+7.6억</td><td class="n">+9%</td><td class="n">+48%</td><td class="n">+9%</td></tr>
-    <tr><td>연꽃 4단지 102</td><td class="n">+105%</td><td class="n b">+7.2억</td><td class="n">+4%</td><td class="n">+41%</td><td class="n">+28%</td></tr>
-    <tr><td>판교원 12단지 102</td><td class="n">+31% (1건)</td><td class="n b">+3.8억</td><td class="n">–</td><td class="n">–</td><td class="n">+15%</td></tr>
-  </table>
-  </div>
-
-  <h3>단지별 하방과 거래</h3>
-  <div class="scroll">
-  <table>
-    <tr><th>단지·타입</th><th class="n">금리 하락 낙폭</th><th class="n">전고점 대비</th><th class="n">전세가율 2026</th><th class="n">연 회전율</th><th class="n">KB 최근 회전율</th></tr>
-    <tr class="hl"><td>정든 1단지 101</td><td class="n">−12%</td><td class="n">+39%</td><td class="n b">46%</td><td class="n">5.3%</td><td class="n">0.86</td></tr>
-    <tr><td>무지개 LG 85</td><td class="n">−9% (얇음)</td><td class="n">+41%</td><td class="n b">41%</td><td class="n">4.7%</td><td class="n">0.71</td></tr>
-    <tr><td>장미 현대 85</td><td class="n">−17%</td><td class="n">+34%</td><td class="n b">46%</td><td class="n">4.3%</td><td class="n">0.80</td></tr>
-    <tr><td>탑 선경 84</td><td class="n">−19%</td><td class="n">+24%</td><td class="n b">44%</td><td class="n">4.9%</td><td class="n">0.00</td></tr>
-    <tr><td>장미 동부 85</td><td class="n">−23%</td><td class="n">+22%</td><td class="n b">46%</td><td class="n">4.5%</td><td class="n">0.52</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td class="n">−22%</td><td class="n">+22%</td><td class="n b">41%</td><td class="n">4.0%</td><td class="n">1.22</td></tr>
-    <tr><td>장미 코오롱 85</td><td class="n">−21%</td><td class="n">+8%</td><td class="n b">57%</td><td class="n">4.0%</td><td class="n">0.13</td></tr>
-    <tr><td>판교원 9단지 85</td><td class="n">−15%</td><td class="n">+15%</td><td class="n b">47%</td><td class="n">5.0%</td><td class="n">0.17</td></tr>
-    <tr><td>판교원 7단지 80</td><td class="n">−11%</td><td class="n">+18%</td><td class="n b">51%</td><td class="n">5.0%</td><td class="n">0.00</td></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td class="n">−19%</td><td class="n">+12%</td><td class="n b">54%</td><td class="n">6.7%</td><td class="n">0.22</td></tr>
-    <tr class="hl"><td>탑 경남 115</td><td class="n">−5% (얇음)</td><td class="n">+3%</td><td class="n b">58%</td><td class="n">3.1%</td><td class="n">0.80</td></tr>
-    <tr><td>연꽃 4단지 102</td><td class="n">−14%</td><td class="n">+11%</td><td class="n b">53%</td><td class="n">8.2%</td><td class="n">0.93</td></tr>
-    <tr><td>판교원 12단지 102</td><td class="n">−13%</td><td class="n">+0%</td><td class="n b">56%</td><td class="n">7.0%</td><td class="n">0.00</td></tr>
-  </table>
-  </div>
-
-  <div class="cols">
-    <div>
-      <h4>읽는 법</h4>
-      <ul>
-        <li>회전율 = 11년 연평균 거래 건수 ÷ 그 타입 세대수. 분당 구축 84㎡는 어디든 연 4~5%다. 절대 거래 건수(청구 연 23건, 선경 22건)가 시세 신뢰도를 만든다.</li>
-        <li>LG의 낙폭 −9%는 2021~22년 거래 5건, 경남 115의 −5%는 2022~24년 거래 4건 위의 숫자라 과소평가일 수 있다. 경남 84㎡(64세대)는 후보에서 빼고 115㎡만 비교했다.</li>
-        <li>정든의 2026년은 실거래 1건(17.85억)이라 2025년 기준이면 +158%, +8.6억이다.</li>
-      </ul>
-    </div>
-    <div>
-      <h4>하방 관점의 결론</h4>
-      <ul>
-        <li>전세가율이 높은 센트럴(54)·연꽃(53)·경남 115(58)는 값의 절반 이상을 실사용 가치가 받친다. 무지개(41)는 41%가 재건축 기대라 하락장에서 가장 취약하고, 청구는 지난 하락장에서 −22%로 먼저·깊게 빠졌다.</li>
-        <li>여수동은 10년 상승 금액이 7억대로 가장 작다. 덜 빠지지만 덜 오른다.</li>
-        <li>장미 코오롱은 전고점 대비 +8%, 최근 회전율 0.13으로 거래가 멈췄다.</li>
-      </ul>
-    </div>
-  </div>
+<h2>매물 현황 — <b>9/21 재조사</b></h2>
+<div class="card top">
+<h3 style="margin-top:0">이번 주의 매물</h3>
+<div class="row" style="font-size:15px;margin-bottom:8px"><span class="tag g">신규</span><b>탑 경남 705동 4층 115㎡ 17.0억</b><br><span class="small">42평 남향 로열동 · 전세 7.6억 승계 · 27.11.28 협의입주 — 잔금 일정과 3주 차이. 실행 규칙 "경남 115, 18억 안"에 처음 걸리는 실물. 705동 이매중 배정 확인 필수.</span></div>
+<div class="row" style="font-size:15px;margin-bottom:8px"><span class="tag g">신규</span><b>연꽃 408동 저층 102㎡ 15.0억</b><br><span class="small">정남향 판상형 · KB 14.65 타입이면 대출 6억 → 총지출 15.9억, 여유 +2.1억</span></div>
+<div class="row" style="font-size:15px"><span class="tag r">소멸</span><b>탑 경남 707동 1층 16.8억</b> — KB·네이버 모두 내려감 · <span class="tag r">소멸</span><b>장미 현대 804동 1층 15.5억</b></div>
+</div>
+<div class="card">
+<table>
+<thead><tr><th>단지</th><th>주요 매물 (9/21)</th><th>변화</th></tr></thead>
+<tbody>
+<tr><td><b>청구 85</b></td><td>14.4(1층) · 15.5(세안고) · 16.0</td><td><span class="tag n">3건 유지</span></td></tr>
+<tr><td><b>센트럴 84</b></td><td><b>14.0(15층)</b> · 14.5 두 건 · 15.0~15.5</td><td><span class="tag b">14억대 4건</span></td></tr>
+<tr><td><b>경남 115</b></td><td><b>17.0(4층 신규)</b> · 17.8(2층) · 18.0(14층)</td><td><span class="tag g">42평 귀환</span></td></tr>
+<tr><td>LG 85</td><td>15.3(1층 특올수리) · 15.4 · 16.2</td><td><span class="tag y">9월 실거래 15.0</span></td></tr>
+<tr><td>연꽃 102</td><td><b>15.0(신규)</b> · 15.6(신규) · 16.0 · 16.2</td><td><span class="tag g">최저가 ↓0.8억</span></td></tr>
+<tr><td>현대 84</td><td>15.7(12층 동향) · 16.0~16.9</td><td><span class="tag n">1층 15.5 소멸</span></td></tr>
+<tr><td>동부 84</td><td>15.7(1층 동향) · 16.1(2층)</td><td><span class="tag n">유지</span></td></tr>
+<tr><td>코오롱 84</td><td>16.3 두 건</td><td><span class="tag n">유지</span></td></tr>
+<tr><td>선경 84</td><td>최저 16.1 · <b>44건 적체</b></td><td><span class="tag r">계속 쌓임</span></td></tr>
+<tr><td>정든 101</td><td>KB엔 7층 19.3뿐 — 1층 16억 확인 필요</td><td><span class="tag y">확인 필요</span></td></tr>
+<tr><td>판교 7·9·12</td><td>17.8+ · 18.0+(49건 적체) · 18.0</td><td><span class="tag n">상한 밖</span></td></tr>
+</tbody></table>
+<p class="small">KB시세 갱신(9/18): 센트럴 14.35→14.45, LG 14.65→14.70 — 청구 포함 셋 다 <b>15억 선 아래 유지</b>(대출 6억 구간).</p>
+</div>
 </section>
 
 <section id="s7">
-  <p class="eyebrow">환금성과 가격 방어</p>
-  <h2>거래가 마르는 곳과 마르지 않는 곳 — <em>회전율</em>로 본 환금성</h2>
-  <p class="sub">회전율은 그 타입 실거래 건수를 그 타입 세대수로 나눈 값이다. 상승장엔 어디든 연 3~8%가 돌지만, 하락장엔 거래가 절반에서 6분의 1로 준다. 하락장에도 회전이 유지된 단지가 팔고 싶을 때 팔리는 집이고, 회전이 유지되면서 낙폭도 작았던 단지가 값을 방어한 집이다.</p>
-
-  <p class="swipe">표는 옆으로 밀어서 봅니다. 맨 왼쪽 단지 열은 고정됩니다.</p>
-  <div class="scroll">
-  <table>
-    <tr><th>단지·타입</th><th class="n">세대</th><th class="n">침체기 2015~17</th><th class="n">상승장 2018·20~21</th><th class="n">하락장 2022~23</th><th class="n">유지율 (하락÷상승)</th><th class="n">현 상승 2025~26</th></tr>
-    <tr><td>연꽃 4단지 102</td><td class="n">82</td><td class="n">10.2%</td><td class="n">8.1%</td><td class="n b">3.0%</td><td class="n">38%</td><td class="n">10.4%</td></tr>
-    <tr><td>장미 동부 85</td><td class="n">336</td><td class="n">7.1%</td><td class="n">4.6%</td><td class="n b">3.0%</td><td class="n">65%</td><td class="n">3.8%</td></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td class="n">224</td><td class="n">11.6%</td><td class="n">6.0%</td><td class="n b">2.9%</td><td class="n">49%</td><td class="n">3.9%</td></tr>
-    <tr><td>판교원 7단지 80</td><td class="n">176</td><td class="n">3.4%</td><td class="n">6.8%</td><td class="n b">2.8%</td><td class="n">42%</td><td class="n">5.4%</td></tr>
-    <tr><td>판교원 12단지 102</td><td class="n">71</td><td class="n">0.0%</td><td class="n">5.2%</td><td class="n b">2.1%</td><td class="n">41%</td><td class="n">4.5%</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td class="n">572</td><td class="n">4.6%</td><td class="n">3.6%</td><td class="n b">1.8%</td><td class="n">51%</td><td class="n">3.9%</td></tr>
-    <tr><td>장미 현대 85</td><td class="n">300</td><td class="n">7.4%</td><td class="n">4.2%</td><td class="n b">1.7%</td><td class="n">39%</td><td class="n">3.3%</td></tr>
-    <tr><td>무지개 LG 85</td><td class="n">332</td><td class="n">6.9%</td><td class="n">4.7%</td><td class="n b">1.7%</td><td class="n">35%</td><td class="n">2.6%</td></tr>
-    <tr><td>탑 선경 84</td><td class="n">448</td><td class="n">8.3%</td><td class="n">4.7%</td><td class="n b">1.2%</td><td class="n">26%</td><td class="n">2.8%</td></tr>
-    <tr><td>장미 코오롱 85</td><td class="n">504</td><td class="n">6.6%</td><td class="n">3.4%</td><td class="n b">1.2%</td><td class="n">35%</td><td class="n">2.1%</td></tr>
-    <tr><td>판교원 9단지 85</td><td class="n">220</td><td class="n">8.2%</td><td class="n">3.2%</td><td class="n b">1.1%</td><td class="n">36%</td><td class="n">3.6%</td></tr>
-    <tr class="hl"><td>탑 경남 115</td><td class="n">102</td><td class="n">4.6%</td><td class="n">2.6%</td><td class="n b">1.0%</td><td class="n">38%</td><td class="n">2.5%</td></tr>
-    <tr class="hl"><td>정든 1단지 101</td><td class="n">116</td><td class="n">7.8%</td><td class="n">5.2%</td><td class="n b">0.9%</td><td class="n">17%</td><td class="n">3.2%</td></tr>
-  </table>
-  </div>
-  <p class="note">센트럴타운과 장미 현대는 매물·실거래 모두 84㎡ 전 타입 기준으로 환산했다(센트럴 실거래 36건은 한 타입 8건을 세대 비례로, 현대는 750세대 기준). 판교원 12단지는 2020년 분양전환 이후만 거래가 있고, 판교원 9단지는 매물이 84㎡ 전 타입 추정·실거래는 한 타입이다. 탑 경남 115는 2026년 거래가 없어 2025년 5건 기준 2.4개월.</p>
-
-  <h3>지금 매물이 몇 달치인가 — 매물(9/15) ÷ 최근 12개월 실거래 월평균</h3>
-  <div class="bars">
-      <div class="bar top"><span class="nm">무지개 청구</span><span class="tr"><span class="fl c-green" style="width:8%"></span></span><span class="vl">2개월</span></div>
-      <div class="bar"><span class="nm">장미 현대</span><span class="tr"><span class="fl c-green" style="width:17%"></span></span><span class="vl">4개월</span></div>
-      <div class="bar top"><span class="nm">센트럴타운</span><span class="tr"><span class="fl c-green" style="width:25%"></span></span><span class="vl">6개월</span></div>
-      <div class="bar"><span class="nm">연꽃 4단지</span><span class="tr"><span class="fl c-green" style="width:25%"></span></span><span class="vl">6개월</span></div>
-      <div class="bar"><span class="nm">판교원 12단지</span><span class="tr"><span class="fl c-green" style="width:25%"></span></span><span class="vl">6개월</span></div>
-      <div class="bar"><span class="nm">장미 동부</span><span class="tr"><span class="fl c-amber" style="width:38%"></span></span><span class="vl">9개월</span></div>
-      <div class="bar"><span class="nm">장미 코오롱</span><span class="tr"><span class="fl c-amber" style="width:42%"></span></span><span class="vl">10개월</span></div>
-      <div class="bar"><span class="nm">무지개 LG</span><span class="tr"><span class="fl c-amber" style="width:50%"></span></span><span class="vl">12개월</span></div>
-      <div class="bar top"><span class="nm">정든 1단지</span><span class="tr"><span class="fl c-amber" style="width:50%"></span></span><span class="vl">12개월</span></div>
-      <div class="bar"><span class="nm">판교원 7단지</span><span class="tr"><span class="fl c-red" style="width:58%"></span></span><span class="vl">14개월</span></div>
-      <div class="bar"><span class="nm">탑 선경</span><span class="tr"><span class="fl c-red" style="width:100%"></span></span><span class="vl">24개월</span></div>
-      <div class="bar"><span class="nm">판교원 9단지</span><span class="tr"><span class="fl c-red" style="width:100%"></span></span><span class="vl">30개월</span></div>
-    </div>
-  <p class="legend"><span><i style="background:#3E9E6E"></i>6개월 이하 — 나오면 빠진다 (매도자 우위)</span><span><i style="background:#D8A93F"></i>9~12개월 — 보통</span><span><i style="background:#C0663F"></i>14개월 이상 — 매물이 쌓임</span></p>
-  <p class="note">6개월 이하는 귀한 쪽(매도자 우위), 12개월 이상은 쌓인 쪽(협상 여지 있으나 환금성 낮음). 청구는 매물 3건에 12개월 실거래 18건, 탑 선경은 매물 14건에 7건이다.</p>
-
-  <div class="quote">
-    <p><span class="b">회전율이 높다 = 선호도가 높다? 절반만 맞다.</span> 회전은 실수요가 많아도, 투자 수요가 들락거려도, 이사가 잦아도 높아진다. 선호도에 가까운 건 <span class="b">하락장 유지율</span>(값이 빠질 때도 사는 사람이 있는가)과 <span class="b">매물 소진 기간</span>(나오면 빨리 빠지는가)이다. 동부 65%·청구 51%·센트럴 49%는 실수요, 선경 26%·코오롱 35%는 상승장에만 도는 투자 수요 성격이다. 대형(경남 115·정든)은 원래 회전이 낮아 같은 평형끼리 비교한다.</p>
-  </div>
-
-  <div class="cols">
-    <div>
-      <h4>환금성 — 하락장에 거래가 남는 단지</h4>
-      <ul>
-        <li>하락장(2022~23) 회전율 상위는 <span class="b">연꽃 3.0% · 장미 동부 3.0% · 센트럴타운 2.9% · 무지개 청구 1.8%</span>. 여수동 신축급은 실수요 거래가 끊기지 않았고, 동부는 야탑에서 유일하게 −35%로 버텼다(초품아 실수요). 청구는 572세대 대형 타입이라 절대 건수(연 10건)가 받친다.</li>
-        <li>판교원 7단지는 하락장 2.8%(유지율 42%)로 여수동급으로 거래가 유지됐고, 9단지는 1.1%로 말랐다. 하위는 정든 0.9% · 경남 115 1.0% · 탑 선경 1.2% · 코오롱 1.2%. 정든·경남 115는 세대수가 102~116이라 하락장엔 연 1건, 선경·코오롱은 상승장 대비 −65~74%로 가장 크게 말랐다. 투자 수요가 빠지면 거래가 사라지는 유형이다.</li>
-        <li>침체기(2015~17)가 회전율 최고다(센트럴 11.6% · 연꽃 10.2% · 선경 8.3%). 값이 쌀 때 가장 잘 돌고, 값이 오를수록 거래는 준다 — 지금 회전율(2.1~3.9%)은 침체기의 절반이다.</li>
-      </ul>
-    </div>
-    <div>
-      <h4>가격 방어 — 회전과 낙폭을 같이 보면</h4>
-      <ul>
-        <li>거래가 유지되면서 낙폭도 작은 조합은 <span class="b">연꽃(3.0% / −14%)·센트럴(2.9% / −19%)</span>. 전세가율 53~54%가 실수요를 붙잡았다.</li>
-        <li><span class="b">청구(1.8% / −22%)·동부(3.0% / −23%)</span>는 거래가 되는 만큼 값이 빨리 반영됐다. 환금성은 좋고 가격 방어는 약한 유형.</li>
-        <li><span class="b">LG·정든·경남 115는 낙폭이 작지만(−5~12%) 거래가 없어서 작은 것</span>이다. 팔리지 않았을 뿐, 팔았다면 얼마였을지 모른다. 정착 전제에서는 문제가 아니지만 "실패하지 않는 자산"의 근거로 이 낙폭을 쓰면 안 된다.</li>
-        <li>지금 매물 소진 기간: 청구 2개월(귀함), 현대 4 · 연꽃 6 · 센트럴 6(정상), 동부 9 · 코오롱 10 · LG 12 · 정든 12개월, <span class="b">선경 24개월(쌓임)</span>. 선경·코오롱은 매물이 쌓였는데 값이 안 내려오는 매도자 버티기 국면이고, 청구는 나오면 바로 빠진다.</li>
-      </ul>
-    </div>
-  </div>
+<h2><b>실행 규칙</b> — 두 갈래로 매물을 본다</h2>
+<div class="card">
+<h3 style="margin-top:0">① 정착·급지 갈래 <span class="tag b">우선</span></h3>
+<p style="font-size:14.5px">정자동 정든·한솔 101㎡+ · 탑 경남 115 남향(이매중 배정 동) · 판교원 80㎡+ ≤17.0억. <b>총지출 18억 안이면 잡는다.</b> 정착이면 1층은 감점이 아니다.</p>
+<h3>② 여유·84 갈래 <span class="tag n">확실한 차선</span></h3>
+<p style="font-size:14.5px;margin-bottom:0">무지개 청구 · 센트럴타운 · LG 1층(특올수리). KB 15억 이하로 대출 6억을 지키고 <b>여유 1.5억 이상</b> 남길 것.</p>
+</div>
+<div class="card">
+<h3 style="margin-top:0">매달 기록할 것</h3>
+<ul style="font-size:14.5px;margin-bottom:0">
+<li>청구·LG KB시세가 <b>15억 아래</b>인지 + 청구 분기 거래 5건 유지 여부</li>
+<li>경남 <b>705동 4층 17.0</b> 생존 · 센트럴 <b>14.0</b> 거래 여부 · 정든 1층 16억 네이버 생존</li>
+<li>토지거래허가구역 연장(2026년 말) · 8호선 성남시청역 예타</li>
+</ul>
+</div>
+<div class="card">
+<h3 style="margin-top:0">매물을 볼 때</h3>
+<ul style="font-size:14.5px;margin-bottom:0">
+<li>최근 실거래 평균 이하 + 그 가격대 거래 3건 이상일 때만 계약</li>
+<li>호가 15억 초중반은 15억 이하로 깎으면 대출이 4→6억 — 5천만 협상이 2억의 가치</li>
+<li>계약서에 "대출 한도 미달 시 해제" 특약 · 은행 사전심사 필수</li>
+<li>1층은 같은 타입 중층 대비 8% 이상 할인일 때만 · 경남은 동별 중학교 배정 확인</li>
+</ul>
+</div>
 </section>
 
 <section id="s8">
-  <p class="eyebrow">지금 시장은 어디쯤인가</p>
-  <h2>지금이 아니라 내년에 사도 되는가 — <em>세 지표가 "그렇다"고 답한다</em></h2>
-  <p class="sub">잔금이 2027년 11월이라 지금은 살 수 없다. 그러면 내년까지 값이 더 뛰어 못 사게 되느냐가 질문이다. 실거래 기준 세 지표는 지금이 상승 국면의 후반부라고 말한다. 후반부라면 내년엔 지금 호가보다 싸게 살 가능성이 높고, 그래서 이 보고서의 기준가는 호가가 아니라 실거래다.</p>
-
-  <h3>① 상승은 이미 1년 넘게 진행됐다</h3>
-  <p>분기 실거래 평균이 2024년 평균보다 10% 높아진 첫 분기는 무지개 LG·센트럴타운 2025년 2분기, 청구·선경·현대 3분기, 코오롱 4분기다. 후보 단지끼리는 거의 동시에 출발했고, 지금은 그로부터 4~6분기가 지났다. 2018년·2020~21년 상승기도 각각 5~7분기 안에 끝났다.</p>
-
-  <h3>② 오르면서 거래가 말랐다 — 호가만 남은 시장</h3>
-  <p class="swipe">표는 옆으로 밀어서 봅니다. 맨 왼쪽 단지 열은 고정됩니다.</p>
-  <div class="scroll">
-  <table>
-    <tr><th>단지</th><th class="n">25년 1Q</th><th class="n">2Q</th><th class="n">3Q</th><th class="n">4Q</th><th class="n">26년 1Q</th><th class="n">2Q</th><th class="n">3Q</th></tr>
-    <tr><td>탑 선경</td><td class="n">3 / 11.4</td><td class="n">6 / 11.6</td><td class="n">8 / 12.7</td><td class="n">5 / 12.3</td><td class="n">1 / 15.0</td><td class="n">1 / 16.3</td><td class="n">0 / –</td></tr>
-    <tr><td>장미 코오롱</td><td class="n">3 / 11.5</td><td class="n">7 / 12.1</td><td class="n">5 / 11.8</td><td class="n">2 / 12.8</td><td class="n">2 / 12.3</td><td class="n">0 / –</td><td class="n">1 / 16.4</td></tr>
-    <tr><td>무지개 LG</td><td class="n">7 / 10.2</td><td class="n">5 / 10.8</td><td class="n">1 / 11.2</td><td class="n">0 / –</td><td class="n">1 / 14.2</td><td class="n">0 / –</td><td class="n">2 / 15.1</td></tr>
-    <tr class="hl"><td>무지개 청구</td><td class="n">11 / 9.9</td><td class="n">7 / 10.3</td><td class="n">4 / 11.4</td><td class="n">5 / 13.0</td><td class="n">3 / 14.0</td><td class="n">5 / 13.5</td><td class="n">5 / 14.9</td></tr>
-    <tr><td>장미 현대</td><td class="n">3 / 10.4</td><td class="n">2 / 9.7</td><td class="n">2 / 12.2</td><td class="n">2 / 13.8</td><td class="n">1 / 15.5</td><td class="n">4 / 15.2</td><td class="n">3 / 15.9</td></tr>
-    <tr class="hl"><td>센트럴타운</td><td class="n">4 / 11.3</td><td class="n">3 / 11.5</td><td class="n">0 / –</td><td class="n">1 / 12.2</td><td class="n">2 / 12.4</td><td class="n">3 / 13.7</td><td class="n">2 / 14.6</td></tr>
-    <tr><td>판교원 7단지 80</td><td class="n" colspan="4">2025년 연간 15건 / 14.1</td><td class="n" colspan="3">2026년 1~9월 3건 / 16.0</td></tr>
-  </table>
-  </div>
-  <p class="note">칸은 건수 / 억. 판교원은 분기 자료 대신 연간으로 표시했고 호가는 17.8억부터라 실거래와 가장 벌어져 있다. 야탑은 2025년 3분기 거래 정점 뒤 분기 0~1건, LG는 12개월 4건인데 호가는 올랐다. 이런 단지의 호가는 값이 아니라 희망이다. 청구만 분기 5건씩 거래하며 오르고, 센트럴은 분기 2~3건으로 완만하다.</p>
-
-  <h3>③ 값의 절반 이상이 기대다 — 전세가율이 낮을수록 조정 여지가 크다</h3>
-  <div class="scroll">
-  <table class="narrow" style="min-width:420px">
-    <tr><th>단지</th><th class="n">2021 고점</th><th class="n">2023 저점</th><th class="n">2026</th></tr>
-    <tr class="hl"><td>탑 경남 115</td><td class="n">40%</td><td class="n">69%</td><td class="n b">58%</td></tr>
-    <tr><td>장미 코오롱 85</td><td class="n">48%</td><td class="n">52%</td><td class="n b">57%</td></tr>
-    <tr><td>판교원 12단지 102</td><td class="n">56%</td><td class="n">51%</td><td class="n b">56%</td></tr>
-    <tr class="hl"><td>센트럴타운 85</td><td class="n">55%</td><td class="n">64%</td><td class="n b">54%</td></tr>
-    <tr><td>연꽃 4단지 102</td><td class="n">62%</td><td class="n">63%</td><td class="n b">53%</td></tr>
-    <tr><td>판교원 7단지 80</td><td class="n">52%</td><td class="n">55%</td><td class="n b">51%</td></tr>
-    <tr><td>판교원 9단지 85</td><td class="n">46%</td><td class="n">53%</td><td class="n b">47%</td></tr>
-    <tr><td>장미 동부 85</td><td class="n">50%</td><td class="n">59%</td><td class="n b">46%</td></tr>
-    <tr><td>장미 현대 85</td><td class="n">49%</td><td class="n">50%</td><td class="n b">46%</td></tr>
-    <tr class="hl"><td>정든 1단지 101</td><td class="n">49%</td><td class="n">51%</td><td class="n b">46%</td></tr>
-    <tr><td>탑 선경 84</td><td class="n">43%</td><td class="n">51%</td><td class="n b">44%</td></tr>
-    <tr><td>무지개 LG 85</td><td class="n">48%</td><td class="n">51%</td><td class="n b">41%</td></tr>
-    <tr class="hl"><td>무지개 청구 85</td><td class="n">50%</td><td class="n">57%</td><td class="n b">41%</td></tr>
-  </table>
-  </div>
-
-  <div class="quote">
-    <p><span class="b">결론. 내년에 사도 된다.</span> 버블 초입이라기보다 <span class="b">재건축 기대를 앞당겨 반영한 고평가 구간, 이번 상승 국면의 후반부</span>다. 2021년과 다른 점은 유동성이 아니라 1기 신도시 특별법과 선도지구 일정이라는 실체가 밀어 올린다는 것. 사업이 가면 프리미엄이 유지되고, 지연되면 그만큼 빠진다. 조정이 오면 2022년처럼 15~20%는 열려 있고, 전세가율이 낮고 거래가 얇은 무지개 LG 시세가 먼저 흔들릴 가능성이 크다. 정착 전제에서는 이 조정이 "손실"이 아니라 "매수 기회"다.</p>
-  </div>
-
-  <div class="cols3">
-    <div class="box">
-      <b>잔금 2027년 11월은 유리하다</b>
-      <p>후반부가 맞다면 내년 6월 이후 호가가 내려오거나 급매가 나올 확률이 높다.</p>
-    </div>
-    <div class="box">
-      <b>기준가를 지금 호가에 두지 않는다</b>
-      <p>2025년 실거래 평균(청구 10.8억, LG 10.5억, 센트럴 11.5억)과 지금 사이 어디를 "정상"으로 볼지 부부가 정해둔다.</p>
-    </div>
-    <div class="box">
-      <b>실거래에 붙여서 산다</b>
-      <p>최근 실거래 평균 이하, 그 가격대에 거래 3건 이상 쌓였을 때만 계약.</p>
-    </div>
-  </div>
-</section>
-
-<section id="s9">
-  <p class="eyebrow">상급지와 후보 단지의 시차</p>
-  <h2>후보 단지는 <em>늦게 오르고, 먼저 꺾이고, 두 배로 빠진다</em> — KB시세 기준</h2>
-  <p class="sub">정자·서현·수내의 상급지 5곳과 후보 6곳의 84㎡가 두 번의 상승장과 한 번의 하락장을 어떻게 따라갔는지. 상급지는 월별 실거래가 드물어 KB 월별 시세로 시점을 잡았다(6·7장 실거래와 숫자가 다른 이유).</p>
-
-  <div class="cols4">
-    <div class="box"><span class="lb note">오를 때</span><b>상급지가 3~9개월 먼저</b><p>2024~26년 상승 도달: 상급지 2024.12~2025.05, 후보 2025.06~09</p></div>
-    <div class="box"><span class="lb note">꺾일 때</span><b>후보가 반년~1년 먼저</b><p>후보 2022.07~12 꺾임, 상급지 2022.12~2023.04</p></div>
-    <div class="box"><span class="lb note">빠지는 폭</span><b>후보가 2배</b><p>상급지 −7~12%, 후보 −11~23% (KB 월별)</p></div>
-    <div class="box"><span class="lb note">한 사이클 전체</span><b>배율은 같다</b><p>2019.12→2026.09 상급지 +89~117%, 후보 +67~108%</p></div>
-  </div>
-
-  <p class="swipe" style="margin-top:18px">표는 옆으로 밀어서 봅니다. 맨 왼쪽 열은 고정됩니다.</p>
-  <div class="scroll">
-  <table>
-    <tr><th>단지</th><th>구분</th><th class="n">2020 상승 도달</th><th class="n">2021~22 고점</th><th class="n">−3% 꺾임</th><th class="n">낙폭(KB)</th><th class="n">2024 상승 도달</th><th class="n">24.01→26.09</th><th class="n">전고점 대비</th></tr>
-    <tr class="hl"><td>시범 우성</td><td>상급지</td><td class="n">2020.07</td><td class="n">2022.06</td><td class="n">2023.02</td><td class="n">−7%</td><td class="n">2025.03</td><td class="n">+43%</td><td class="n">+34%</td></tr>
-    <tr class="hl"><td>시범 현대</td><td>상급지</td><td class="n">2020.08</td><td class="n">2022.09</td><td class="n">2023.02</td><td class="n">−12%</td><td class="n">2025.05</td><td class="n">+43%</td><td class="n">+28%</td></tr>
-    <tr class="hl"><td>양지 금호1</td><td>상급지</td><td class="n">2020.08</td><td class="n">2021.12</td><td class="n">2023.04</td><td class="n">−11%</td><td class="n">2024.12</td><td class="n">+54%</td><td class="n">+47%</td></tr>
-    <tr class="hl"><td>파크타운 삼익</td><td>상급지</td><td class="n">2020.08</td><td class="n">2021.11</td><td class="n">2023.02</td><td class="n">−9%</td><td class="n">2025.02</td><td class="n">+44%</td><td class="n">+31%</td></tr>
-    <tr class="hl"><td>상록 우성</td><td>상급지</td><td class="n">2020.08</td><td class="n">2021.11</td><td class="n">2022.12</td><td class="n">−11%</td><td class="n">2025.05</td><td class="n">+56%</td><td class="n">+49%</td></tr>
-    <tr><td>장미 코오롱</td><td>후보</td><td class="n">2020.07</td><td class="n">2021.08</td><td class="n">2022.11</td><td class="n">−16%</td><td class="n">2025.06</td><td class="n">+52%</td><td class="n">+30%</td></tr>
-    <tr><td>장미 현대</td><td>후보</td><td class="n">2020.07</td><td class="n">2022.05</td><td class="n">2022.09</td><td class="n">−19%</td><td class="n">2025.06</td><td class="n">+60%</td><td class="n">+36%</td></tr>
-    <tr><td>탑 선경</td><td>후보</td><td class="n">2020.09</td><td class="n">2021.09</td><td class="n">2022.12</td><td class="n">−18%</td><td class="n">2025.07</td><td class="n">+40%</td><td class="n">+18%</td></tr>
-    <tr><td>무지개 청구</td><td>후보</td><td class="n">2020.03</td><td class="n">2021.09</td><td class="n">2022.07</td><td class="n">−23%</td><td class="n">2025.07</td><td class="n">+53%</td><td class="n">+25%</td></tr>
-    <tr><td>무지개 LG</td><td>후보</td><td class="n">2020.07</td><td class="n">2021.08</td><td class="n">2023.04</td><td class="n">−11%</td><td class="n">2025.09</td><td class="n">+47%</td><td class="n">+34%</td></tr>
-    <tr><td>센트럴타운</td><td>후보</td><td class="n">2020.07</td><td class="n">2021.03</td><td class="n">2022.09</td><td class="n">−23%</td><td class="n">2025.07</td><td class="n">+35%</td><td class="n">+20%</td></tr>
-  </table>
-  </div>
-  <p class="note">판교원마을은 KB 월별 시점 자료를 아직 넣지 못해 표에 없다. 실거래 연평균 기준으로는 7단지 2022년 고점(13.6) → 2023년 저점(12.1) −11%, 9단지 2021년 고점(15.5) → 2023년 저점(13.2) −15%로 후보 단지(−16~23%)보다 작고 상급지(−7~12%)에 가깝다. 상승 시차는 2024→2025년 +5%(7단지)로 후보와 비슷하게 늦게 움직였다.</p>
-
-  <div class="cols">
-    <div>
-      <h4>데이터가 말하는 것</h4>
-      <ul>
-        <li><span class="b">상승 시차</span>: 2024~26년엔 상급지가 3~9개월 먼저 올랐다. 2020년 유동성 장에서는 동시에 출발했다. 돈이 풀리면 같이 오르고, 재건축 재료가 끌면 재료 중심부터 순서대로 오른다.</li>
-        <li><span class="b">하락 시차</span>: 후보 단지가 2022년 7~12월에 먼저 꺾였고 상급지는 2023년 2~4월까지 반년~1년을 더 버텼다.</li>
-        <li><span class="b">낙폭</span>: 상급지 −7~12%, 후보 −11~23%.</li>
-      </ul>
-    </div>
-    <div>
-      <h4>정착 전제에서의 뜻</h4>
-      <ul>
-        <li>한 사이클(2019.12→2026.09) 전체로는 청구 +107%, 현대 +108%로 상급지(+89~117%)와 배율이 같다. 출발가가 낮아 배율은 따라잡지만 낙폭을 두 배 감수했다.</li>
-        <li>팔지 않고 10년을 산다면 낙폭은 실현되지 않는다. 다만 하락장에서 대출 6억을 안고 버틸 현금 흐름이 있어야 한다 — 그래서 여유 현금이 자산 점수의 일부다.</li>
-        <li>후보 안에서 낙폭이 작았던 곳은 LG(−11%, 거래 얇음)뿐. 청구·센트럴은 −23%로 제일 깊었다.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="s10">
-  <p class="eyebrow">매물별 자금 구조</p>
-  <h2>지금 시장에 있다면 — 매물별 <em>부채 구성과 여유</em></h2>
-  <p class="sub">총지출 = 호가 + 인테리어 + 취득세 3.3% + 중개 0.5% + 이사·예비 0.15%. 대출은 KB 15억 이하면 KB×40%, 초과면 4억. 추가 자금은 12억 + 대출을 넘는 부분(2억 한도). 여유 = 18억 − 총지출. 월 상환은 대출 원리금(30년 4.3%) 기준이고, 마지막 열은 3장의 추정 계약가로 계약했을 때의 여유다.</p>
-
-  <p class="swipe">표는 옆으로 밀어서 봅니다. 맨 왼쪽 매물 열은 고정됩니다.</p>
-  <div class="scroll">
-  <table class="wide">
-    <tr><th>매물</th><th class="n">호가</th><th class="n">인테리어</th><th class="n">총지출</th><th class="n">대출</th><th class="n">추가 자금</th><th class="n">필요 현금</th><th class="n">여유(18억)</th><th class="n">월 상환</th><th class="n">추정 계약가 → 여유</th></tr>
-    <tr class="hl"><td>센트럴타운 319동 15층 남동 85</td><td class="n">14.0</td><td class="n">0.05</td><td class="n">14.7</td><td class="n">5.74</td><td class="n">–</td><td class="n">9.0</td><td class="n pos">+3.3</td><td class="n">284만</td><td class="n">13.7 → <span class="pos">+3.6</span></td></tr>
-    <tr class="hl"><td>무지개 청구 505동 1층 남 85</td><td class="n">14.4</td><td class="n">0.20</td><td class="n">15.3</td><td class="n">5.76</td><td class="n">–</td><td class="n">9.5</td><td class="n pos">+2.7</td><td class="n">285만</td><td class="n">14.3 → <span class="pos">+2.9</span></td></tr>
-    <tr class="hl"><td>센트럴타운 312동 7층 남서 85</td><td class="n">14.5</td><td class="n">0.05</td><td class="n">15.3</td><td class="n">5.74</td><td class="n">–</td><td class="n">9.5</td><td class="n pos">+2.7</td><td class="n">284만</td><td class="n">13.7 → <span class="pos">+3.6</span></td></tr>
-    <tr class="hl"><td>센트럴타운 312동 6층 남동 85</td><td class="n">14.9</td><td class="n">0.05</td><td class="n">15.7</td><td class="n">5.74</td><td class="n">–</td><td class="n">9.9</td><td class="n pos">+2.3</td><td class="n">284만</td><td class="n">13.7 → <span class="pos">+3.6</span></td></tr>
-    <tr><td>무지개 LG 210동 1층 남동 85 (특올수리)</td><td class="n">15.3</td><td class="n">0.05</td><td class="n">16.1</td><td class="n">5.86</td><td class="n">–</td><td class="n">10.2</td><td class="n pos">+1.9</td><td class="n">290만</td><td class="n">15.1 → <span class="pos">+2.1</span></td></tr>
-    <tr><td>무지개 LG 212동 6층 남동 85</td><td class="n">15.4</td><td class="n">0.20</td><td class="n">16.3</td><td class="n">5.86</td><td class="n">–</td><td class="n">10.5</td><td class="n pos">+1.7</td><td class="n">290만</td><td class="n">15.1 → <span class="pos">+1.9</span></td></tr>
-    <tr><td>무지개 청구 509동 16층 남 85 (세안고 27.3)</td><td class="n">15.5</td><td class="n">0.20</td><td class="n">16.4</td><td class="n">5.76</td><td class="n">–</td><td class="n">10.7</td><td class="n pos">+1.6</td><td class="n">285만</td><td class="n">14.3 → <span class="pos">+2.9</span></td></tr>
-    <tr><td>장미 현대 804동 1층 남 85</td><td class="n">15.5</td><td class="n">0.05</td><td class="n">16.3</td><td class="n">4.00</td><td class="n">0.3</td><td class="n">12.3</td><td class="n pos">+1.7</td><td class="n">198만</td><td class="n">15.2 → <span class="pos">+2.0</span></td></tr>
-    <tr><td>연꽃 402동 9층 동 102 (신규)</td><td class="n">15.8</td><td class="n">0.05</td><td class="n">16.6</td><td class="n">5.86</td><td class="n">–</td><td class="n">10.7</td><td class="n pos">+1.4</td><td class="n">290만</td><td class="n">15.5 → <span class="pos">+1.7</span></td></tr>
-    <tr><td>장미 동부 134동 2층 남 85 (인하)</td><td class="n">16.1</td><td class="n">0.05</td><td class="n">16.9</td><td class="n">4.00</td><td class="n">0.9</td><td class="n">12.9</td><td class="n pos">+1.1</td><td class="n">198만</td><td class="n">15.4 → <span class="pos">+1.8</span></td></tr>
-    <tr><td>탑 선경 108동 2층 남 84</td><td class="n">16.1</td><td class="n">0.05</td><td class="n">16.9</td><td class="n">6.00</td><td class="n">–</td><td class="n">10.9</td><td class="n pos">+1.1</td><td class="n">297만</td><td class="n">15.5 → <span class="pos">+1.8</span></td></tr>
-    <tr><td>무지개 LG 201동 7층 남 135 (급매)</td><td class="n">17.0</td><td class="n">0.05</td><td class="n">17.8</td><td class="n">4.00</td><td class="n">1.8</td><td class="n">13.8</td><td class="n pos">+0.2</td><td class="n">198만</td><td class="n">15.1 → <span class="pos">+2.1</span></td></tr>
-    <tr><td>탑 경남 705동 2층 남 115</td><td class="n">17.8</td><td class="n">0.20</td><td class="n">18.8</td><td class="n">4.00</td><td class="n">2.8</td><td class="n">14.8</td><td class="n neg">−0.8</td><td class="n">198만</td><td class="n">17.3 → <span class="neg">−0.3</span></td></tr>
-    <tr><td>판교원 7단지 703동 9층 남 80</td><td class="n">17.8</td><td class="n">0.05</td><td class="n">18.7</td><td class="n">4.00</td><td class="n">2.7</td><td class="n">14.7</td><td class="n neg">−0.7</td><td class="n">198만</td><td class="n">17.3 → <span class="neg">−0.1</span></td></tr>
-    <tr><td>판교원 12단지 1204동 중간층 남 102</td><td class="n">18.0</td><td class="n">0.05</td><td class="n">18.9</td><td class="n">4.00</td><td class="n">2.9</td><td class="n">14.9</td><td class="n neg">−0.9</td><td class="n">198만</td><td class="n">17.5 → <span class="neg">−0.3</span></td></tr>
-  </table>
-  </div>
-
-  <div class="quote">
-    <p><span class="b">읽는 법.</span> 15억 이하 구간은 대출이 6억 가까이 나와 추가 자금 없이 1.6~3.3억이 남는다. 15억 초과는 대출이 4억이라 추가 자금 0.3~1.8억을 쓰고, 그만큼 월 상환은 100만 가벼워진다. 경남 115와 판교원 두 매물은 총지출 17.8~18.9억으로 18억 상한에 딱 붙거나 넘는다 — 되긴 되지만 비상금이 2~4천만이다.</p>
-  </div>
-</section>
-
-<section id="s11">
-  <p class="eyebrow">입지 다각 분석</p>
-  <h2>다섯 동네를 다섯 각도로 — 거주자·학부모·투자자의 말</h2>
-  <p class="sub">블라인드·82cook·호갱노노·집품·나무위키의 거주자 후기와 KB·리치고 자료를 모았다. 지표(등급·시세)와 여론이 다른 곳은 그대로 적었다.</p>
-
-  <div class="nbgrid">
-    <div class="nblock">
-      <h4>구미동 무지개마을</h4>
-      <dl>
-        <dt>거주 만족</dt><dd>"실거주는 진짜 만족"(블라인드). 조용, 탄천·불곡산, 무지개도서관. 미금·오리역까지 "더 안쪽이라 역까지 더 걸어야"</dd>
-        <dt>교육 여론</dt><dd>초등(구미초·불곡초) 좋다는 데 이견 없음. 중학교(불곡중)는 "임대 섞여 좋다고 못하겠다"는 미금 출신 평도 있어 지표(1.5등급)와 여론이 갈림. 학원은 미금·정자로</dd>
-        <dt>교통·통근</dt><dd>차량 위주면 무난. 대중교통은 "서울 통근이면 강남 아니면 비추", 신분당선 아님이 "가장 뼈아픔"</dd>
-        <dt>개발·자산</dt><dd>"분당에서 제일 늦게 오르고 제일 빨리 떨어진다" vs "늦게라도 같이 오른다". 오리역 4테크노밸리 승인, 리모델링 진행 단지(지하주차장 확보 기대)</dd>
-        <dt>단점</dt><dd>이중주차, 구축 층간소음, 관리비(소단지일수록). 역까지 거리</dd>
-      </dl>
-    </div>
-    <div class="nblock">
-      <h4>야탑동 탑마을·경남 (장미·선경과 구분)</h4>
-      <dl>
-        <dt>거주 만족</dt><dd>"야탑에서 제일 괜찮은 아파트"(30년 거주자). 자차 교통 편리, 성남IC</dd>
-        <dt>교육 여론</dt><dd>돌마초 "차 없는 길", 이매중 배정 동 인기. 야탑엔 학원가 없음 — 수내·정자 셔틀</dd>
-        <dt>교통·통근</dt><dd>성남IC 인접, 3번국도. 야탑역 도보 5~10분</dd>
-        <dt>개발·자산</dt><dd>1기 신도시 후속 재건축 대상. 84㎡ 대비 대형 평당가 낮음</dd>
-        <dt>단점</dt><dd>탑 경남은 주차 여유. 탑 선경(0.81대)·장미(0.79대)는 주차난. 경남은 동별 중학교 배정 갈림</dd>
-      </dl>
-    </div>
-    <div class="nblock">
-      <h4>여수동 센트럴타운·연꽃</h4>
-      <dl>
-        <dt>거주 만족</dt><dd>집품 평점 4.3(여수동 평균 3.8), 입지·내부 4.7. "구축보다 쾌적, 시청 앞 교통 편함", 커뮤니티 도서관·헬스장</dd>
-        <dt>교육 여론</dt><dd>여수초 도보 5분, 야탑중 도보 5분. 야탑중은 "서·수·정보다 선호 낮음". 학원가 없음</dd>
-        <dt>교통·통근</dt><dd>야탑역 도보 12분. 8호선 연장(모란~판교) 성남시청역을 시빗거리라도 짓겠다는 시 입장, 예타 결과가 관건</dd>
-        <dt>개발·자산</dt><dd>재건축 없음, 8호선 호재 하나. "상승장 참여 약함"은 실거래로 확인</dd>
-        <dt>단점</dt><dd>일부 후기 "단점 주차". 중원구 소속, 학군 약함</dd>
-      </dl>
-    </div>
-    <div class="nblock">
-      <h4>정자동 정든마을</h4>
-      <dl>
-        <dt>거주 만족</dt><dd>"살기 편해 이사 갈 생각을 못 함"(정든 거주 학부모). 이마트 도보 10분, 버스 노선 풍부</dd>
-        <dt>교육 여론</dt><dd>불정초 인접, 정자중 1.8등급, 분당중 배정 가능성. 분당중앙고가 "의대·서울대 분당 톱3". 학원은 정자·수내 어디든</dd>
-        <dt>교통·통근</dt><dd>정자역 도보 10~15분, 마을버스. 광역버스 노선 풍부</dd>
-        <dt>개발·자산</dt><dd>"분당 대장 동네" 정자. 소단지라 인접 단지와 통합 전제. 정자 학원가는 성남대로 불법주차·서점 부족이 고질</dd>
-        <dt>단점</dt><dd>1층·소단지·미수리. 정자역 유흥가가 학원가 옆</dd>
-      </dl>
-    </div>
-    <div class="nblock">
-      <h4>판교동 판교원마을</h4>
-      <dl>
-        <dt>거주 만족</dt><dd>2009년 서판교 신도시. 7·9단지 초품아, "주차장이 최고"(매물 문구). 조용한 주거지, 상권은 판교역·운중동</dd>
-        <dt>교육 여론</dt><dd>판교초 1.2·낙생초 1.3(경기 상위 2~3%), 낙원중 1.2·판교중 1.5·낙생고 1.3(경기 상위 5%). 후보 중 초·중·고 등급 최상. 학원가는 판교역·운중동</dd>
-        <dt>교통·통근</dt><dd>판교역까지 버스·마을버스, 기흥 차량 25~30분(경부·용서 정체)</dd>
-        <dt>개발·자산</dt><dd>재건축 없음(2009). 판교 테크노밸리 직주근접 수요. 호가가 KB보다 8~24% 높아 매도자 우위</dd>
-        <dt>단점</dt><dd>84㎡ 18억대·80㎡ 17.8억~로 예산 밖. 12단지는 분양전환 단지</dd>
-      </dl>
-    </div>
-  </div>
-
-  <div class="quote">
-    <p><span class="b">여론이 지표와 갈리는 두 곳.</span> ① 불곡중은 리치고 1.5등급이지만 미금 출신 거주자는 "좋다고 못하겠다"고 한다. 무지개 청구의 교육 점수는 지표 기준이니, 임장 때 학부모 몇 명에게 직접 물어야 한다. ② 무지개마을의 자산 인식은 "늦게 오르고 빨리 떨어진다"는 쪽과 "같이 오른다"는 쪽이 부딪히는데, 9장의 KB시세 분석(후보 단지가 먼저 꺾이고 두 배로 빠짐)은 전자를 뒷받침한다. 정착이면 팔 일이 없어 이 약점은 실현되지 않지만, 무지개를 고른다면 알고 고르는 것이다.</p>
-  </div>
-
-  <h3>실행 규칙</h3>
-  <div class="cols">
-    <div>
-      <h4>두 갈래로 매물을 본다</h4>
-      <ul>
-        <li><span class="b">정착·급지 갈래</span>: 정자동 정든·한솔 101㎡ 이상, 탑 경남 115·38평 남향(이매중 배정 동), 판교원 7·9·12단지 80㎡ 이상. 총지출 18억 안(집값 약 16.8억·판교는 17.0억)이면 잡는다. 1층은 정착이면 감점이 아니다.</li>
-        <li><span class="b">여유·84 갈래</span>: 무지개 청구·LG, 센트럴타운 84㎡. KB 15억 이하로 대출 6억, 1.5억 이상 남길 것.</li>
-        <li>야탑 84㎡(장미·탑 선경)와 선도지구 소형은 이 전제에서 제외.</li>
-      </ul>
-    </div>
-    <div>
-      <h4>매달 기록하고, 매물을 볼 때</h4>
-      <ul>
-        <li>무지개 청구·LG KB시세와 청구 분기 거래 건수(5건 밑이면 신호), 센트럴 14.0억 매물의 거래 여부, 탑 경남 115·38평 매물 출현, 토지거래허가구역 연장 여부(2026년 말), 8호선 성남시청역 예타.</li>
-        <li>최근 실거래 평균 이하, 그 가격대 거래 3건 이상일 때만 계약. 호가 15억 초중반은 15억 이하로 깎을 때 대출이 4억→6억.</li>
-        <li>계약서에 "대출 한도 미달 시 해제" 특약, 사전심사 필수. 탑 경남은 동별 중학교 배정, 정든은 배정 중학교(정자중/분당중)와 학원 동선 확인.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="s12">
-  <p class="eyebrow">부록</p>
-  <h2>전제 · 급지 순서 · 후보에서 뺀 것</h2>
-
-  <h3>움직일 수 있는 시점</h3>
-  <ul>
-    <li>기존 주택은 매도 완료. 현재 성남시 분당구 구미동 까치마을1단지 전세, 보증금 6.1억, 만기 2027년 11월 초.</li>
-    <li>2026년 7월에 매매를 시도했으나 임대인이 전세 해지를 거부해 무산. 만기 전에는 움직일 수 없다.</li>
-    <li>가족은 38·36세, 두 아들 3·1세. 아내는 기흥역 인근 10시 출근.</li>
-  </ul>
-
-  <h3>매수 목적과 우선순위</h3>
-  <ul>
-    <li>목적은 실거주 안정 · 노후까지 갈 자산 · 두 아들의 학군(최상위까지는 아니어도 적정) · 맞벌이 유지.</li>
-    <li>1순위는 정착. 갈아타기는 2순위이므로, 많이 오를 집보다 덜 빠지고 버틸 집을 고른다.</li>
-    <li>4인 가족 기준 84㎡면 충분하고 더 크면 좋은 정도. 전용 73㎡ 이상, 구축이면 84㎡ 기준.</li>
-    <li>급지를 살릴 수 있다면 59㎡도 고려 대상이나, 선도지구 소형은 정착과 부딪혀 이번 후보에서 제외했다.</li>
-    <li>초등학교가 가까운 단지를 선호. 아내가 10시 출근이라 등교를 맡기 좋다.</li>
-  </ul>
-
-  <h3>20년 관찰 기준의 급지 순서</h3>
-  <p class="sub">채점의 급지 항목(15%)에 그대로 들어간 순서다. 괄호 안은 배점.</p>
-  <ol class="rank">
-    <li><div><span class="nm">수내</span><span class="cm">5.0 · 분당에서 가장 높게 보는 자리</span></div></li>
-    <li><div><span class="nm">서현 · 정자</span><span class="cm">4.6 · 두 곳을 같은 급으로 봄</span></div></li>
-    <li><div><span class="nm">이매</span><span class="cm">4.2</span></div></li>
-    <li><div><span class="nm">분당동 (샛별마을)</span><span class="cm">3.9</span></div></li>
-    <li><div><span class="nm">구미동 (금곡)</span><span class="cm">3.6 · 84㎡ 20억 대, 예산 밖</span></div></li>
-    <li><div><span class="nm">판교동 판교원마을</span><span class="cm">3.4 · 낙생중 학군, 이번에 후보로 추가</span></div></li>
-    <li><div><span class="nm">구미동 (미금)</span><span class="cm">3.3 · 84㎡ 20억 대, 예산 밖</span></div></li>
-    <li><div><span class="nm">야탑 (탑마을 · 장미마을)</span><span class="cm">3.0</span></div></li>
-    <li><div><span class="nm">구미동 (오리 · 무지개)</span><span class="cm">2.7</span></div></li>
-    <li><div><span class="nm">여수 (센트럴 · 연꽃)</span><span class="cm">2.4</span></div></li>
-  </ol>
-
-  <h3>후보에서 뺀 것과 그 이유</h3>
-  <div class="cols">
-    <div>
-      <ul>
-        <li><span class="b">갈아타기(징검다리) 매수</span> — 취득세·중개수수료·이사·수리로 1.1~1.4억이 나가고 그사이 금리·규제 위험을 진다. 정착 1순위와 어긋나 후순위.</li>
-        <li><span class="b">선도지구 59㎡</span>(시범·샛별·양지) — 자산으로는 가장 강하지만 2029~30년 이주라 정착과 정면충돌.</li>
-        <li><span class="b">미금·금곡 84㎡</span> — 급지는 높으나 20억 대로 예산 밖.</li>
-      </ul>
-    </div>
-    <div>
-      <ul>
-        <li><span class="b">탑 경남 84㎡</span> — 64세대에 동향 매물뿐이라 제외. 115㎡만 비교했다.</li>
-        <li><span class="b">야탑 84㎡(장미·탑 선경)</span> — 어느 가중치로도 상위에 오지 않는다. 선경은 실거래보다 17% 비싸고 매물이 24개월치다.</li>
-        <li><span class="b">경매</span> — 완전히 접지는 않되 곁가지로만 지켜본다.</li>
-      </ul>
-    </div>
-  </div>
-
-  <h3>2027년 6월 전까지 할 일</h3>
-  <ul class="check">
-    <li>후보 단지 KB시세·매물·실거래를 매월 기록 (스마트폰에서 보는 자동 갱신 대시보드)</li>
-    <li>무지개 청구 분기 거래 건수 추적 — 5건 밑으로 떨어지면 신호</li>
-    <li>센트럴타운 14.0억 매물의 실제 거래 여부 확인</li>
-    <li>탑 경남 115㎡·38평 매물 출현 시 알림</li>
-    <li>정든 1단지 1층 16억(네이버) 실재 여부 확인</li>
-    <li>판교원 7·12단지 17.0억 이하 매물 감시</li>
-    <li>토지거래허가구역 연장 여부(2026년 말), 8호선 성남시청역 예타 결과</li>
-    <li>임장 때 불곡중 학부모 평판 직접 청취, 탑 경남 동별 중학교 배정 확인</li>
-    <li>2027년 상반기 은행 사전심사 — 15억 구간 대출 한도 확인</li>
-    <li>"세입자 있는 집 + 임대차 만기 2027년 10~11월" 매물 우선 탐색</li>
-  </ul>
-</section>
-
-<footer>
-  분당 실거주 매수 전략 보고서 · 2026.09.15<br>
-  시세 KB 2026.09.11 · 매물 KB 2026.09.15 · 실거래·전세가율 KB(국토부 신고 기반) · 학교 등급 리치고<br>
-  통학·주차는 현장 확인과 거주자 후기 · 대출·세금은 계약 전 은행·세무사 확인
-</footer>
-
+<h2><b>학교·통근</b> 요약</h2>
+<div class="card">
+<table>
+<thead><tr><th>단지</th><th>초등 (접근)</th><th>중학교 (등급)</th></tr></thead>
+<tbody>
+<tr><td>판교원</td><td>판교초 1.2 (초품아)</td><td>낙원중 1.2 · 판교중 1.5</td></tr>
+<tr><td>탑 경남</td><td>돌마초 1.8 (차 없는 길)</td><td>이매중 1.4~1.5 (동별 확인)</td></tr>
+<tr><td>청구</td><td>불곡초 1.5 (소로 1회)</td><td>불곡중·구미중 1.5~1.6</td></tr>
+<tr><td>정든</td><td>불정초 1.6 (인접)</td><td>정자중 1.8 + 중앙고 인근</td></tr>
+<tr><td>센트럴·연꽃</td><td>성남여수초 (4차선 1회)</td><td>야탑중 2.7~3</td></tr>
+<tr><td>LG</td><td>구미초 1.4 (2회 횡단)</td><td>구미중·불곡중 1.5~1.6</td></tr>
+</tbody></table>
+<p class="small" style="margin-bottom:0">아내 통근(기흥역, 차량): 구미동 15~20분 · 정자 20분 · 야탑·여수·판교 25~30분. 학원가는 수내·정자뿐 — 중학생부터는 어디 살든 그쪽으로 보내게 되고, 셔틀 동선은 구미·정자가 유리. 주차: 경남·여수동·판교 여유, 장미·선경 0.8대 부족.</p>
 </div>
-</body>
-</html>
+</section>
+
+</main>
+<footer>시세 KB 2026.09.18 · 매물 KB 2026.09.21(로그인, 중복 합산) · 실거래·전세가율 국토부 신고(KB 집계) · 학교 등급 리치고 · 통학·주차는 현장 확인과 거주자 후기 · 대출·세금은 계약 전 은행·세무사 확인. 상세 근거는 12쪽 보고서(PDF·HTML) 참조.</footer>
+</body></html>
